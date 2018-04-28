@@ -1,0 +1,2840 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{Enunciado-T1}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    INF-395/477 Redes Neuronales Artificiales I-2018
+
+Tarea 1 - Redes Neuronales y \emph{Deep Learning}
+
+Integrantes:
+
+Alfredo Silva Celpa 201373511-8
+
+Margarita Bugueño Pérez 201373510-k
+
+\textbf{Temas}\\
+* Entrenamiento de redes \emph{Feed-Forward} vı́a GD y variantes (SGD,
+mini-\emph{batches}), \emph{momentum}, regularización y tasa de
+aprendizaje adaptiva. * Evaluación de redes \emph{Feed-Forward} vı́a
+validación cruzada (cross-validation). * Rol de capas ocultas y mayor
+profundidad (\emph{Deep Learning}). * Identificar el gradiente
+desvaneciente. * Diseño y entrenamiento de Redes Convolucionales (CNNs).
+
+** Formalidades **\\
+* Equipos de trabajo de: 2 personas (\emph{cada uno debe estar en
+condiciones de realizar una presentación y discutir sobre cada punto del
+trabajo realizado}) * Se debe preparar una presentación de 20 minutos.
+Presentador será elegido aleatoriamente. * Se debe preparar un (breve)
+Jupyter/IPython notebook que explique la actividad realizada y las
+conclusiones del trabajo * Fecha de entrega y discusión: 04 Abril *
+Formato de entrega: envı́o de link Github al correo electrónico del
+ayudante
+(\emph{\href{mailto:francisco.mena.13@sansano.usm.cl}{\nolinkurl{francisco.mena.13@sansano.usm.cl}}})
+, incluyendo al profesor en copia
+(\emph{\href{mailto:jnancu@inf.utfsm.cl}{\nolinkurl{jnancu@inf.utfsm.cl}}}).
+Por favor especificar el siguiente asunto: {[}Tarea1-INF395-I-2018{]}
+
+La tarea se divide en secciones:
+
+Section \ref{primero} Predicción del precio de una Casa\\
+Section \ref{segundo} \emph{Deep Networks}\\
+Section \ref{tercero} Convolutional Neural Network (CNN) en CIFAR.\\
+Section \ref{cuarto} Aplicación de una red neuronal en Localización
+
+     \#\# 1. Predicción del precio de una Casa
+
+En esta sección trabajaremos con un pequeño dataset conocido como
+\textbf{Boston Housing} que nos permitirá experimentar de modo más
+completo y exhaustivo con las técnicas bajo estudio. El problema
+consiste en predecir el precio de una casa en una zona/barrio de Boston
+(\emph{USA}) a partir de una serie de atributos que describen el lugar
+que éste se ubica: tasa de criminalidad, proporción de zona residencial,
+proporción de zona industrial, si se encuentra junto al rı́o ó no,
+contaminación atmosférica medida como la concentración de óxidos
+nı́tricos en el aire, entre otros. Para ver en detalle la descripción de
+la semántica asociada a los atributos de este problema, puede consultar
+\textbf{\href{https://archive.ics.uci.edu/ml/machine-learning-databases/housing/}{Housing}}.
+
+\begin{quote}
+\begin{enumerate}
+\def\labelenumi{\alph{enumi})}
+\tightlist
+\item
+  Construya un \emph{dataframe} con los datos a analizar descargando los
+  datos desde la URL mantenida por los autores de \emph{The Elements of
+  Statistical Learning}. Convierta la variable \emph{CHAS} a un vector
+  binario de dos componentes indicando las 2 posibilidades de su valor,
+  indique la conveniencia de este paso. Describa brevemente el dataset
+  utilizar.
+\end{enumerate}
+\end{quote}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ImportTok{import}\NormalTok{ pandas }\ImportTok{as}\NormalTok{ pd}
+\NormalTok{url }\OperatorTok{=} \StringTok{'http://mldata.org/repository/data/download/csv/regression-datasets-housing/'}
+\NormalTok{df }\OperatorTok{=}\NormalTok{ pd.read_csv(url, sep}\OperatorTok{=}\StringTok{','}\NormalTok{,header}\OperatorTok{=}\VariableTok{None}\NormalTok{, names}\OperatorTok{=}\NormalTok{[}\StringTok{'CRIM'}\NormalTok{, }\StringTok{'ZN'}\NormalTok{, }\StringTok{'INDUS'}\NormalTok{, }\StringTok{'CHAS'}\NormalTok{, }\StringTok{'NOX'}\NormalTok{,}
+    \StringTok{'RM'}\NormalTok{, }\StringTok{'AGE'}\NormalTok{,}\StringTok{'DIS'}\NormalTok{,}\StringTok{'RAD'}\NormalTok{,}\StringTok{'TAX'}\NormalTok{,}\StringTok{'PTRATIO'}\NormalTok{,}\StringTok{'B'}\NormalTok{,}\StringTok{'LSTAT'}\NormalTok{,}\StringTok{'MEDV'}\NormalTok{])}
+\NormalTok{df }\OperatorTok{=}\NormalTok{ pd.get_dummies(df,columns}\OperatorTok{=}\NormalTok{[}\StringTok{"CHAS"}\NormalTok{]) }\CommentTok{#to categorical}
+\ImportTok{from}\NormalTok{ sklearn.cross_validation }\ImportTok{import}\NormalTok{ train_test_split}
+\NormalTok{df_train,df_test}\OperatorTok{=}\NormalTok{ train_test_split(df,test_size}\OperatorTok{=}\FloatTok{0.25}\NormalTok{, random_state}\OperatorTok{=}\DecValTok{0}\NormalTok{)}
+\NormalTok{df.shape}
+\NormalTok{df.info()}
+\NormalTok{df.describe()}
+\end{Highlighting}
+\end{Shaded}
+
+Es una buena práctica el normalizar los datos antes de trabajar con el
+modelo
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ImportTok{from}\NormalTok{ sklearn.preprocessing }\ImportTok{import}\NormalTok{ StandardScaler}
+\NormalTok{scaler }\OperatorTok{=}\NormalTok{ StandardScaler().fit(df_train)}
+\NormalTok{X_train_scaled }\OperatorTok{=}\NormalTok{ pd.DataFrame(scaler.transform(df_train),columns}\OperatorTok{=}\NormalTok{df_train.columns)}
+\NormalTok{y_train }\OperatorTok{=}\NormalTok{ df_train.pop(}\StringTok{'MEDV'}\NormalTok{).reshape(}\OperatorTok{-}\DecValTok{1}\NormalTok{,}\DecValTok{1}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+        \PY{l+s+sd}{Attribute Information:}
+        
+        \PY{l+s+sd}{    1. CRIM      per capita crime rate by town}
+        \PY{l+s+sd}{    2. ZN        proportion of residential land zoned for lots over }
+        \PY{l+s+sd}{                 25,000 sq.ft.}
+        \PY{l+s+sd}{    3. INDUS     proportion of non\PYZhy{}retail business acres per town}
+        \PY{l+s+sd}{    4. CHAS      Charles River dummy variable (= 1 if tract bounds }
+        \PY{l+s+sd}{                 river; 0 otherwise)}
+        \PY{l+s+sd}{    5. NOX       nitric oxides concentration (parts per 10 million)}
+        \PY{l+s+sd}{    6. RM        average number of rooms per dwelling}
+        \PY{l+s+sd}{    7. AGE       proportion of owner\PYZhy{}occupied units built prior to 1940}
+        \PY{l+s+sd}{    8. DIS       weighted distances to five Boston employment centres}
+        \PY{l+s+sd}{    9. RAD       index of accessibility to radial highways}
+        \PY{l+s+sd}{    10. TAX      full\PYZhy{}value property\PYZhy{}tax rate per \PYZdl{}10,000}
+        \PY{l+s+sd}{    11. PTRATIO  pupil\PYZhy{}teacher ratio by town}
+        \PY{l+s+sd}{    12. B        1000(Bk \PYZhy{} 0.63)\PYZca{}2 where Bk is the proportion of blacks }
+        \PY{l+s+sd}{                 by town}
+        \PY{l+s+sd}{    13. LSTAT    \PYZpc{} lower status of the population}
+        \PY{l+s+sd}{    14. MEDV     Median value of owner\PYZhy{}occupied homes in \PYZdl{}1000\PYZsq{}s}
+        \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+        
+        \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+        \PY{n}{url} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{http://mldata.org/repository/data/download/csv/regression\PYZhy{}datasets\PYZhy{}housing/}\PY{l+s+s1}{\PYZsq{}}
+        \PY{n}{df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{n}{url}\PY{p}{,} \PY{n}{sep}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{,}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{header}\PY{o}{=}\PY{k+kc}{None}\PY{p}{,} \PY{n}{names}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{CRIM}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ZN}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{INDUS}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{CHAS}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{NOX}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+            \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{RM}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{AGE}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{DIS}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{RAD}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{TAX}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PTRATIO}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{B}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{LSTAT}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{MEDV}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+        \PY{n}{df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{get\PYZus{}dummies}\PY{p}{(}\PY{n}{df}\PY{p}{,}\PY{n}{columns}\PY{o}{=}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{CHAS}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)} \PY{c+c1}{\PYZsh{}to categorical}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{cross\PYZus{}validation} \PY{k}{import} \PY{n}{train\PYZus{}test\PYZus{}split}
+        \PY{n}{df\PYZus{}train}\PY{p}{,}\PY{n}{df\PYZus{}test}\PY{o}{=} \PY{n}{train\PYZus{}test\PYZus{}split}\PY{p}{(}\PY{n}{df}\PY{p}{,}\PY{n}{test\PYZus{}size}\PY{o}{=}\PY{l+m+mf}{0.25}\PY{p}{,} \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+        \PY{n+nb}{print} \PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{Dimensiones del dataset:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n+nb}{print} \PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+        \PY{n+nb}{print} \PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{Información descritiva}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n+nb}{print} \PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{info}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+        \PY{n+nb}{print} \PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{Estadísticos de interés}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n+nb}{print} \PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{describe}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+Dimensiones del dataset:
+(506, 15)
+
+
+Información descritiva
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 506 entries, 0 to 505
+Data columns (total 15 columns):
+CRIM       506 non-null float64
+ZN         506 non-null int64
+INDUS      506 non-null float64
+NOX        506 non-null float64
+RM         506 non-null float64
+AGE        506 non-null float64
+DIS        506 non-null float64
+RAD        506 non-null int64
+TAX        506 non-null int64
+PTRATIO    506 non-null int64
+B          506 non-null float64
+LSTAT      506 non-null float64
+MEDV       506 non-null float64
+CHAS\_0     506 non-null uint8
+CHAS\_1     506 non-null uint8
+dtypes: float64(9), int64(4), uint8(2)
+memory usage: 52.5 KB
+None
+
+
+Estadísticos de interés
+             CRIM          ZN       INDUS         NOX          RM         AGE  \textbackslash{}
+count  506.000000  506.000000  506.000000  506.000000  506.000000  506.000000   
+mean     3.613524   11.347826   11.136779    0.554695    6.284634   68.574901   
+std      8.601545   23.310593    6.860353    0.115878    0.702617   28.148861   
+min      0.006320    0.000000    0.460000    0.385000    3.561000    2.900000   
+25\%      0.082045    0.000000    5.190000    0.449000    5.885500   45.025000   
+50\%      0.256510    0.000000    9.690000    0.538000    6.208500   77.500000   
+75\%      3.677082   12.000000   18.100000    0.624000    6.623500   94.075000   
+max     88.976200  100.000000   27.740000    0.871000    8.780000  100.000000   
+
+              DIS         RAD         TAX     PTRATIO           B       LSTAT  \textbackslash{}
+count  506.000000  506.000000  506.000000  506.000000  506.000000  506.000000   
+mean     3.795043    9.549407  408.237154   18.083004  356.674032   12.653063   
+std      2.105710    8.707259  168.537116    2.280574   91.294864    7.141062   
+min      1.129600    1.000000  187.000000   12.000000    0.320000    1.730000   
+25\%      2.100175    4.000000  279.000000   17.000000  375.377500    6.950000   
+50\%      3.207450    5.000000  330.000000   19.000000  391.440000   11.360000   
+75\%      5.188425   24.000000  666.000000   20.000000  396.225000   16.955000   
+max     12.126500   24.000000  711.000000   22.000000  396.900000   37.970000   
+
+             MEDV      CHAS\_0      CHAS\_1  
+count  506.000000  506.000000  506.000000  
+mean    22.532806    0.930830    0.069170  
+std      9.197104    0.253994    0.253994  
+min      5.000000    0.000000    0.000000  
+25\%     17.025000    1.000000    0.000000  
+50\%     21.200000    1.000000    0.000000  
+75\%     25.000000    1.000000    0.000000  
+max     50.000000    1.000000    1.000000  
+
+    \end{Verbatim}
+
+    \subsubsection{explicar el dataset y los estadisticos
+observados}\label{explicar-el-dataset-y-los-estadisticos-observados}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{preprocessing} \PY{k}{import} \PY{n}{StandardScaler}
+         \PY{n}{scaler} \PY{o}{=} \PY{n}{StandardScaler}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{df\PYZus{}train}\PY{p}{)}
+         \PY{n}{X\PYZus{}train\PYZus{}scaled} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{scaler}\PY{o}{.}\PY{n}{transform}\PY{p}{(}\PY{n}{df\PYZus{}train}\PY{p}{)}\PY{p}{,}\PY{n}{columns}\PY{o}{=}\PY{n}{df\PYZus{}train}\PY{o}{.}\PY{n}{columns}\PY{p}{)}
+         \PY{n}{y\PYZus{}train} \PY{o}{=} \PY{n}{df\PYZus{}train}\PY{o}{.}\PY{n}{pop}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{MEDV}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{values}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}
+         
+         \PY{n}{X\PYZus{}test\PYZus{}scaled} \PY{o}{=}  \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{scaler}\PY{o}{.}\PY{n}{transform}\PY{p}{(}\PY{n}{df\PYZus{}test}\PY{p}{)}\PY{p}{,}\PY{n}{columns}\PY{o}{=}\PY{n}{df\PYZus{}test}\PY{o}{.}\PY{n}{columns}\PY{p}{)}
+         \PY{n}{y\PYZus{}test} \PY{o}{=} \PY{n}{df\PYZus{}test}\PY{o}{.}\PY{n}{pop}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{MEDV}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{values}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{quote}
+\begin{enumerate}
+\def\labelenumi{\alph{enumi})}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  Muestre en un gráfico el error cuadrático (MSE) para el conjunto de
+  entrenamiento y de pruebas vs número de \emph{epochs} de
+  entrenamiento, para una red \emph{feedforward} de 3 capas, con 200
+  unidades ocultas y función de activación sigmoidal. Entrene la red
+  usando gradiente descendente estocástico con tasa de aprendizaje
+  (learning rate) 0.01 y 300 epochs de entrenamiento, en el conjunto de
+  entrenamiento y de pruebas. Comente. Si observara divergencia durante
+  el entrenamiento, determine si esto ocurre para cada repetición del
+  experimento.
+\end{enumerate}
+\end{quote}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ImportTok{from}\NormalTok{ keras.models }\ImportTok{import}\NormalTok{ Sequential}
+\ImportTok{from}\NormalTok{ keras.layers.core }\ImportTok{import}\NormalTok{ Dense, Activation}
+\ImportTok{from}\NormalTok{ keras.optimizers }\ImportTok{import}\NormalTok{ SGD}
+\NormalTok{model }\OperatorTok{=}\NormalTok{ Sequential()}
+\NormalTok{model.add(Dense(}\DecValTok{200}\NormalTok{, input_dim}\OperatorTok{=}\NormalTok{X_train_scaled.shape[}\DecValTok{1}\NormalTok{], kernel_initializer}\OperatorTok{=}\StringTok{'uniform'}\NormalTok{))}
+\NormalTok{model.add(Activation(}\StringTok{'sigmoid'}\NormalTok{))}
+\NormalTok{model.add(Dense(}\DecValTok{1}\NormalTok{, kernel_initializer}\OperatorTok{=}\StringTok{'uniform'}\NormalTok{))}
+\NormalTok{model.add(Activation(}\StringTok{'linear'}\NormalTok{))}
+\NormalTok{sgd }\OperatorTok{=}\NormalTok{ SGD(lr}\OperatorTok{=}\FloatTok{0.01}\NormalTok{)}
+\NormalTok{model.}\BuiltInTok{compile}\NormalTok{(optimizer}\OperatorTok{=}\NormalTok{sgd,loss}\OperatorTok{=}\StringTok{'mean_squared_error'}\NormalTok{)}
+\NormalTok{hist }\OperatorTok{=}\NormalTok{ model.fit(X_train_scaled.as_matrix(), y_train.as_matrix(), epochs}\OperatorTok{=}\DecValTok{300}\NormalTok{,}
+\NormalTok{    verbose}\OperatorTok{=}\DecValTok{1}\NormalTok{, validation_data}\OperatorTok{=}\NormalTok{(X_test_scaled.as_matrix(), y_test.as_matrix()))}
+\end{Highlighting}
+\end{Shaded}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}22}]:} \PY{c+c1}{\PYZsh{}b)}
+         \PY{k+kn}{from} \PY{n+nn}{keras}\PY{n+nn}{.}\PY{n+nn}{models} \PY{k}{import} \PY{n}{Sequential}
+         \PY{k+kn}{from} \PY{n+nn}{keras}\PY{n+nn}{.}\PY{n+nn}{layers}\PY{n+nn}{.}\PY{n+nn}{core} \PY{k}{import} \PY{n}{Dense}\PY{p}{,} \PY{n}{Activation}
+         \PY{k+kn}{from} \PY{n+nn}{keras}\PY{n+nn}{.}\PY{n+nn}{optimizers} \PY{k}{import} \PY{n}{SGD}
+         \PY{n}{model} \PY{o}{=} \PY{n}{Sequential}\PY{p}{(}\PY{p}{)}
+         \PY{n}{model}\PY{o}{.}\PY{n}{add}\PY{p}{(}\PY{n}{Dense}\PY{p}{(}\PY{l+m+mi}{200}\PY{p}{,} \PY{n}{input\PYZus{}dim}\PY{o}{=}\PY{n}{X\PYZus{}train\PYZus{}scaled}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{kernel\PYZus{}initializer}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{uniform}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{activation}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{sigmoid}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{)}
+         \PY{n}{model}\PY{o}{.}\PY{n}{add}\PY{p}{(}\PY{n}{Dense}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{kernel\PYZus{}initializer}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{uniform}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{activation}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{linear}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{)} 
+         \PY{n}{model}\PY{o}{.}\PY{n}{compile}\PY{p}{(}\PY{n}{optimizer}\PY{o}{=}\PY{n}{SGD}\PY{p}{(}\PY{n}{lr}\PY{o}{=}\PY{l+m+mf}{0.01}\PY{p}{)}\PY{p}{,}\PY{n}{loss}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{mean\PYZus{}squared\PYZus{}error}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{history} \PY{o}{=} \PY{n}{model}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train\PYZus{}scaled}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{epochs}\PY{o}{=}\PY{l+m+mi}{300}\PY{p}{,}
+             \PY{n}{verbose}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{validation\PYZus{}data}\PY{o}{=}\PY{p}{(}\PY{n}{X\PYZus{}test\PYZus{}scaled}\PY{p}{,} \PY{n}{y\PYZus{}test}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Train on 379 samples, validate on 127 samples
+Epoch 1/300
+379/379 [==============================] - 0s 927us/step - loss: 99.7634 - val\_loss: 43.0846
+Epoch 2/300
+379/379 [==============================] - 0s 66us/step - loss: 30.9318 - val\_loss: 32.9787
+Epoch 3/300
+379/379 [==============================] - 0s 79us/step - loss: 22.0749 - val\_loss: 28.0768
+Epoch 4/300
+379/379 [==============================] - 0s 77us/step - loss: 18.2105 - val\_loss: 25.0950
+Epoch 5/300
+379/379 [==============================] - 0s 90us/step - loss: 17.0580 - val\_loss: 20.3511
+Epoch 6/300
+379/379 [==============================] - 0s 79us/step - loss: 12.4093 - val\_loss: 17.1794
+Epoch 7/300
+379/379 [==============================] - 0s 77us/step - loss: 11.6334 - val\_loss: 15.4517
+Epoch 8/300
+379/379 [==============================] - 0s 66us/step - loss: 10.2313 - val\_loss: 13.6885
+Epoch 9/300
+379/379 [==============================] - 0s 58us/step - loss: 9.8319 - val\_loss: 12.5271
+Epoch 10/300
+379/379 [==============================] - 0s 55us/step - loss: 8.6842 - val\_loss: 11.7395
+Epoch 11/300
+379/379 [==============================] - 0s 66us/step - loss: 7.6010 - val\_loss: 10.5057
+Epoch 12/300
+379/379 [==============================] - 0s 61us/step - loss: 7.2195 - val\_loss: 9.4776
+Epoch 13/300
+379/379 [==============================] - 0s 61us/step - loss: 6.5013 - val\_loss: 8.6198
+Epoch 14/300
+379/379 [==============================] - 0s 63us/step - loss: 6.1980 - val\_loss: 7.8536
+Epoch 15/300
+379/379 [==============================] - 0s 63us/step - loss: 6.0420 - val\_loss: 7.2840
+Epoch 16/300
+379/379 [==============================] - 0s 55us/step - loss: 5.6609 - val\_loss: 6.8727
+Epoch 17/300
+379/379 [==============================] - 0s 55us/step - loss: 5.3311 - val\_loss: 6.2679
+Epoch 18/300
+379/379 [==============================] - 0s 79us/step - loss: 4.9101 - val\_loss: 5.7068
+Epoch 19/300
+379/379 [==============================] - 0s 63us/step - loss: 4.4435 - val\_loss: 5.2922
+Epoch 20/300
+379/379 [==============================] - 0s 58us/step - loss: 4.4819 - val\_loss: 5.0637
+Epoch 21/300
+379/379 [==============================] - 0s 66us/step - loss: 3.8170 - val\_loss: 5.1333
+Epoch 22/300
+379/379 [==============================] - 0s 50us/step - loss: 3.6310 - val\_loss: 4.0370
+Epoch 23/300
+379/379 [==============================] - 0s 58us/step - loss: 3.3544 - val\_loss: 3.7409
+Epoch 24/300
+379/379 [==============================] - 0s 58us/step - loss: 3.1198 - val\_loss: 4.3715
+Epoch 25/300
+379/379 [==============================] - 0s 55us/step - loss: 2.6257 - val\_loss: 3.1218
+Epoch 26/300
+379/379 [==============================] - 0s 58us/step - loss: 2.5035 - val\_loss: 3.3072
+Epoch 27/300
+379/379 [==============================] - 0s 61us/step - loss: 2.1541 - val\_loss: 3.2174
+Epoch 28/300
+379/379 [==============================] - 0s 58us/step - loss: 2.0567 - val\_loss: 2.4275
+Epoch 29/300
+379/379 [==============================] - 0s 61us/step - loss: 1.8444 - val\_loss: 2.1473
+Epoch 30/300
+379/379 [==============================] - 0s 55us/step - loss: 1.7652 - val\_loss: 2.2258
+Epoch 31/300
+379/379 [==============================] - 0s 61us/step - loss: 1.6202 - val\_loss: 1.9057
+Epoch 32/300
+379/379 [==============================] - 0s 50us/step - loss: 1.6249 - val\_loss: 1.8782
+Epoch 33/300
+379/379 [==============================] - 0s 61us/step - loss: 1.3030 - val\_loss: 1.4838
+Epoch 34/300
+379/379 [==============================] - 0s 53us/step - loss: 1.2655 - val\_loss: 1.5115
+Epoch 35/300
+379/379 [==============================] - 0s 50us/step - loss: 1.1217 - val\_loss: 1.2033
+Epoch 36/300
+379/379 [==============================] - 0s 55us/step - loss: 1.0384 - val\_loss: 1.1809
+Epoch 37/300
+379/379 [==============================] - 0s 53us/step - loss: 0.9279 - val\_loss: 1.0291
+Epoch 38/300
+379/379 [==============================] - 0s 63us/step - loss: 0.8866 - val\_loss: 0.9970
+Epoch 39/300
+379/379 [==============================] - 0s 61us/step - loss: 0.8234 - val\_loss: 0.9095
+Epoch 40/300
+379/379 [==============================] - 0s 55us/step - loss: 0.8070 - val\_loss: 0.8486
+Epoch 41/300
+379/379 [==============================] - 0s 61us/step - loss: 0.7124 - val\_loss: 0.8497
+Epoch 42/300
+379/379 [==============================] - 0s 66us/step - loss: 0.6955 - val\_loss: 0.6861
+Epoch 43/300
+379/379 [==============================] - 0s 55us/step - loss: 0.6149 - val\_loss: 0.7430
+Epoch 44/300
+379/379 [==============================] - 0s 63us/step - loss: 0.6173 - val\_loss: 0.6144
+Epoch 45/300
+379/379 [==============================] - 0s 58us/step - loss: 0.5667 - val\_loss: 0.6024
+Epoch 46/300
+379/379 [==============================] - 0s 53us/step - loss: 0.5207 - val\_loss: 0.5298
+Epoch 47/300
+379/379 [==============================] - 0s 58us/step - loss: 0.5394 - val\_loss: 0.6162
+Epoch 48/300
+379/379 [==============================] - 0s 50us/step - loss: 0.4737 - val\_loss: 0.4717
+Epoch 49/300
+379/379 [==============================] - 0s 58us/step - loss: 0.5152 - val\_loss: 0.4465
+Epoch 50/300
+379/379 [==============================] - 0s 50us/step - loss: 0.4271 - val\_loss: 0.4432
+Epoch 51/300
+379/379 [==============================] - 0s 55us/step - loss: 0.4571 - val\_loss: 0.4270
+Epoch 52/300
+379/379 [==============================] - 0s 58us/step - loss: 0.4145 - val\_loss: 0.5398
+Epoch 53/300
+379/379 [==============================] - 0s 53us/step - loss: 0.4148 - val\_loss: 0.3907
+Epoch 54/300
+379/379 [==============================] - 0s 63us/step - loss: 0.3853 - val\_loss: 0.4260
+Epoch 55/300
+379/379 [==============================] - 0s 48us/step - loss: 0.3929 - val\_loss: 0.4753
+Epoch 56/300
+379/379 [==============================] - 0s 58us/step - loss: 0.3912 - val\_loss: 0.3513
+Epoch 57/300
+379/379 [==============================] - 0s 50us/step - loss: 0.3873 - val\_loss: 0.3748
+Epoch 58/300
+379/379 [==============================] - 0s 55us/step - loss: 0.3315 - val\_loss: 0.4378
+Epoch 59/300
+379/379 [==============================] - 0s 48us/step - loss: 0.3635 - val\_loss: 0.4886
+Epoch 60/300
+379/379 [==============================] - 0s 53us/step - loss: 0.3381 - val\_loss: 0.3158
+Epoch 61/300
+379/379 [==============================] - 0s 50us/step - loss: 0.3524 - val\_loss: 0.3610
+Epoch 62/300
+379/379 [==============================] - 0s 53us/step - loss: 0.3210 - val\_loss: 0.3865
+Epoch 63/300
+379/379 [==============================] - 0s 61us/step - loss: 0.3254 - val\_loss: 0.3003
+Epoch 64/300
+379/379 [==============================] - 0s 55us/step - loss: 0.3362 - val\_loss: 0.3230
+Epoch 65/300
+379/379 [==============================] - 0s 58us/step - loss: 0.3058 - val\_loss: 0.2958
+Epoch 66/300
+379/379 [==============================] - 0s 61us/step - loss: 0.3028 - val\_loss: 0.2833
+Epoch 67/300
+379/379 [==============================] - 0s 61us/step - loss: 0.3066 - val\_loss: 0.2836
+Epoch 68/300
+379/379 [==============================] - 0s 55us/step - loss: 0.3047 - val\_loss: 0.3172
+Epoch 69/300
+379/379 [==============================] - 0s 50us/step - loss: 0.2856 - val\_loss: 0.2870
+Epoch 70/300
+379/379 [==============================] - 0s 53us/step - loss: 0.2898 - val\_loss: 0.2923
+Epoch 71/300
+379/379 [==============================] - 0s 50us/step - loss: 0.2858 - val\_loss: 0.2619
+Epoch 72/300
+379/379 [==============================] - 0s 71us/step - loss: 0.3040 - val\_loss: 0.2659
+Epoch 73/300
+379/379 [==============================] - 0s 69us/step - loss: 0.2926 - val\_loss: 0.2573
+Epoch 74/300
+379/379 [==============================] - 0s 58us/step - loss: 0.2660 - val\_loss: 0.2666
+Epoch 75/300
+379/379 [==============================] - 0s 55us/step - loss: 0.2837 - val\_loss: 0.3011
+Epoch 76/300
+379/379 [==============================] - 0s 58us/step - loss: 0.2605 - val\_loss: 0.2673
+Epoch 77/300
+379/379 [==============================] - 0s 61us/step - loss: 0.2709 - val\_loss: 0.2717
+Epoch 78/300
+379/379 [==============================] - 0s 50us/step - loss: 0.2632 - val\_loss: 0.2662
+Epoch 79/300
+379/379 [==============================] - 0s 58us/step - loss: 0.2519 - val\_loss: 0.2469
+Epoch 80/300
+379/379 [==============================] - 0s 48us/step - loss: 0.2580 - val\_loss: 0.2699
+Epoch 81/300
+379/379 [==============================] - 0s 58us/step - loss: 0.2562 - val\_loss: 0.2369
+Epoch 82/300
+379/379 [==============================] - 0s 58us/step - loss: 0.2465 - val\_loss: 0.2536
+Epoch 83/300
+379/379 [==============================] - 0s 66us/step - loss: 0.2639 - val\_loss: 0.2477
+Epoch 84/300
+379/379 [==============================] - 0s 55us/step - loss: 0.2411 - val\_loss: 0.2506
+Epoch 85/300
+379/379 [==============================] - 0s 58us/step - loss: 0.2470 - val\_loss: 0.2277
+Epoch 86/300
+379/379 [==============================] - 0s 61us/step - loss: 0.2361 - val\_loss: 0.3118
+Epoch 87/300
+379/379 [==============================] - 0s 61us/step - loss: 0.2629 - val\_loss: 0.2190
+Epoch 88/300
+379/379 [==============================] - 0s 58us/step - loss: 0.2320 - val\_loss: 0.2411
+Epoch 89/300
+379/379 [==============================] - 0s 66us/step - loss: 0.2449 - val\_loss: 0.3185
+Epoch 90/300
+379/379 [==============================] - 0s 58us/step - loss: 0.2322 - val\_loss: 0.2213
+Epoch 91/300
+379/379 [==============================] - 0s 61us/step - loss: 0.2346 - val\_loss: 0.2454
+Epoch 92/300
+379/379 [==============================] - 0s 61us/step - loss: 0.2440 - val\_loss: 0.2176
+Epoch 93/300
+379/379 [==============================] - 0s 66us/step - loss: 0.2213 - val\_loss: 0.2634
+Epoch 94/300
+379/379 [==============================] - 0s 77us/step - loss: 0.2225 - val\_loss: 0.2112
+Epoch 95/300
+379/379 [==============================] - 0s 55us/step - loss: 0.2246 - val\_loss: 0.2059
+Epoch 96/300
+379/379 [==============================] - 0s 69us/step - loss: 0.2181 - val\_loss: 0.2254
+Epoch 97/300
+379/379 [==============================] - 0s 63us/step - loss: 0.2343 - val\_loss: 0.2639
+Epoch 98/300
+379/379 [==============================] - 0s 45us/step - loss: 0.2297 - val\_loss: 0.1980
+Epoch 99/300
+379/379 [==============================] - 0s 61us/step - loss: 0.2320 - val\_loss: 0.2088
+Epoch 100/300
+379/379 [==============================] - 0s 71us/step - loss: 0.2111 - val\_loss: 0.2093
+Epoch 101/300
+379/379 [==============================] - 0s 71us/step - loss: 0.2321 - val\_loss: 0.2111
+Epoch 102/300
+379/379 [==============================] - 0s 66us/step - loss: 0.2179 - val\_loss: 0.2037
+Epoch 103/300
+379/379 [==============================] - 0s 66us/step - loss: 0.2067 - val\_loss: 0.2207
+Epoch 104/300
+379/379 [==============================] - 0s 63us/step - loss: 0.2087 - val\_loss: 0.2280
+Epoch 105/300
+379/379 [==============================] - 0s 63us/step - loss: 0.2019 - val\_loss: 0.1982
+Epoch 106/300
+379/379 [==============================] - 0s 71us/step - loss: 0.2199 - val\_loss: 0.2014
+Epoch 107/300
+379/379 [==============================] - 0s 50us/step - loss: 0.2163 - val\_loss: 0.1931
+Epoch 108/300
+379/379 [==============================] - 0s 50us/step - loss: 0.2070 - val\_loss: 0.2081
+Epoch 109/300
+379/379 [==============================] - 0s 55us/step - loss: 0.2049 - val\_loss: 0.1835
+Epoch 110/300
+379/379 [==============================] - 0s 63us/step - loss: 0.2020 - val\_loss: 0.2084
+Epoch 111/300
+379/379 [==============================] - 0s 58us/step - loss: 0.2001 - val\_loss: 0.2033
+Epoch 112/300
+379/379 [==============================] - 0s 82us/step - loss: 0.1988 - val\_loss: 0.1920
+Epoch 113/300
+379/379 [==============================] - 0s 71us/step - loss: 0.2002 - val\_loss: 0.1947
+Epoch 114/300
+379/379 [==============================] - 0s 61us/step - loss: 0.2025 - val\_loss: 0.1957
+Epoch 115/300
+379/379 [==============================] - 0s 61us/step - loss: 0.2013 - val\_loss: 0.1776
+Epoch 116/300
+379/379 [==============================] - 0s 61us/step - loss: 0.2072 - val\_loss: 0.1779
+Epoch 117/300
+379/379 [==============================] - 0s 61us/step - loss: 0.1872 - val\_loss: 0.1841
+Epoch 118/300
+379/379 [==============================] - 0s 61us/step - loss: 0.1886 - val\_loss: 0.1908
+Epoch 119/300
+379/379 [==============================] - 0s 63us/step - loss: 0.1917 - val\_loss: 0.1934
+Epoch 120/300
+379/379 [==============================] - 0s 50us/step - loss: 0.1958 - val\_loss: 0.1785
+Epoch 121/300
+379/379 [==============================] - 0s 58us/step - loss: 0.2042 - val\_loss: 0.1903
+Epoch 122/300
+379/379 [==============================] - 0s 69us/step - loss: 0.1933 - val\_loss: 0.1707
+Epoch 123/300
+379/379 [==============================] - 0s 63us/step - loss: 0.1877 - val\_loss: 0.2135
+Epoch 124/300
+379/379 [==============================] - 0s 63us/step - loss: 0.1885 - val\_loss: 0.1791
+Epoch 125/300
+379/379 [==============================] - 0s 69us/step - loss: 0.1840 - val\_loss: 0.1796
+Epoch 126/300
+379/379 [==============================] - 0s 61us/step - loss: 0.1874 - val\_loss: 0.1699
+Epoch 127/300
+379/379 [==============================] - 0s 55us/step - loss: 0.1792 - val\_loss: 0.1660
+Epoch 128/300
+379/379 [==============================] - 0s 63us/step - loss: 0.1784 - val\_loss: 0.1696
+Epoch 129/300
+379/379 [==============================] - 0s 66us/step - loss: 0.1885 - val\_loss: 0.2111
+Epoch 130/300
+379/379 [==============================] - 0s 66us/step - loss: 0.1917 - val\_loss: 0.1709
+Epoch 131/300
+379/379 [==============================] - 0s 61us/step - loss: 0.1755 - val\_loss: 0.1598
+Epoch 132/300
+379/379 [==============================] - 0s 53us/step - loss: 0.1747 - val\_loss: 0.1723
+Epoch 133/300
+379/379 [==============================] - 0s 53us/step - loss: 0.1857 - val\_loss: 0.1817
+Epoch 134/300
+379/379 [==============================] - 0s 55us/step - loss: 0.1789 - val\_loss: 0.1729
+Epoch 135/300
+379/379 [==============================] - 0s 53us/step - loss: 0.1735 - val\_loss: 0.1597
+Epoch 136/300
+379/379 [==============================] - 0s 61us/step - loss: 0.1699 - val\_loss: 0.1912
+Epoch 137/300
+379/379 [==============================] - 0s 58us/step - loss: 0.1737 - val\_loss: 0.1725
+Epoch 138/300
+379/379 [==============================] - 0s 55us/step - loss: 0.1685 - val\_loss: 0.1659
+Epoch 139/300
+379/379 [==============================] - 0s 63us/step - loss: 0.1648 - val\_loss: 0.1707
+Epoch 140/300
+379/379 [==============================] - 0s 61us/step - loss: 0.1728 - val\_loss: 0.1605
+Epoch 141/300
+379/379 [==============================] - 0s 58us/step - loss: 0.1657 - val\_loss: 0.1572
+Epoch 142/300
+379/379 [==============================] - 0s 69us/step - loss: 0.1622 - val\_loss: 0.1524
+Epoch 143/300
+379/379 [==============================] - 0s 74us/step - loss: 0.1657 - val\_loss: 0.1528
+Epoch 144/300
+379/379 [==============================] - 0s 61us/step - loss: 0.1640 - val\_loss: 0.1679
+Epoch 145/300
+379/379 [==============================] - 0s 66us/step - loss: 0.1650 - val\_loss: 0.1546
+Epoch 146/300
+379/379 [==============================] - 0s 55us/step - loss: 0.1695 - val\_loss: 0.1482
+Epoch 147/300
+379/379 [==============================] - 0s 55us/step - loss: 0.1607 - val\_loss: 0.1511
+Epoch 148/300
+379/379 [==============================] - 0s 61us/step - loss: 0.1592 - val\_loss: 0.1591
+Epoch 149/300
+379/379 [==============================] - 0s 63us/step - loss: 0.1620 - val\_loss: 0.1483
+Epoch 150/300
+379/379 [==============================] - 0s 55us/step - loss: 0.1587 - val\_loss: 0.1766
+Epoch 151/300
+379/379 [==============================] - 0s 58us/step - loss: 0.1531 - val\_loss: 0.1458
+Epoch 152/300
+379/379 [==============================] - 0s 55us/step - loss: 0.1574 - val\_loss: 0.1430
+Epoch 153/300
+379/379 [==============================] - 0s 61us/step - loss: 0.1524 - val\_loss: 0.1512
+Epoch 154/300
+379/379 [==============================] - 0s 58us/step - loss: 0.1609 - val\_loss: 0.1428
+Epoch 155/300
+379/379 [==============================] - 0s 55us/step - loss: 0.1493 - val\_loss: 0.1727
+Epoch 156/300
+379/379 [==============================] - 0s 53us/step - loss: 0.1553 - val\_loss: 0.1651
+Epoch 157/300
+379/379 [==============================] - 0s 58us/step - loss: 0.1528 - val\_loss: 0.1428
+Epoch 158/300
+379/379 [==============================] - ETA: 0s - loss: 0.170 - 0s 50us/step - loss: 0.1587 - val\_loss: 0.1423
+Epoch 159/300
+379/379 [==============================] - 0s 66us/step - loss: 0.1525 - val\_loss: 0.1667
+Epoch 160/300
+379/379 [==============================] - 0s 55us/step - loss: 0.1515 - val\_loss: 0.1479
+Epoch 161/300
+379/379 [==============================] - 0s 61us/step - loss: 0.1477 - val\_loss: 0.1458
+Epoch 162/300
+379/379 [==============================] - 0s 53us/step - loss: 0.1473 - val\_loss: 0.1364
+Epoch 163/300
+379/379 [==============================] - 0s 53us/step - loss: 0.1592 - val\_loss: 0.1472
+Epoch 164/300
+379/379 [==============================] - 0s 53us/step - loss: 0.1477 - val\_loss: 0.1365
+Epoch 165/300
+379/379 [==============================] - 0s 58us/step - loss: 0.1455 - val\_loss: 0.1444
+Epoch 166/300
+379/379 [==============================] - 0s 63us/step - loss: 0.1461 - val\_loss: 0.1388
+Epoch 167/300
+379/379 [==============================] - 0s 63us/step - loss: 0.1481 - val\_loss: 0.1343
+Epoch 168/300
+379/379 [==============================] - 0s 63us/step - loss: 0.1429 - val\_loss: 0.1334
+Epoch 169/300
+379/379 [==============================] - 0s 55us/step - loss: 0.1443 - val\_loss: 0.1426
+Epoch 170/300
+379/379 [==============================] - 0s 66us/step - loss: 0.1423 - val\_loss: 0.1418
+Epoch 171/300
+379/379 [==============================] - 0s 58us/step - loss: 0.1409 - val\_loss: 0.1527
+Epoch 172/300
+379/379 [==============================] - 0s 55us/step - loss: 0.1393 - val\_loss: 0.1320
+Epoch 173/300
+379/379 [==============================] - 0s 58us/step - loss: 0.1413 - val\_loss: 0.1519
+Epoch 174/300
+379/379 [==============================] - 0s 66us/step - loss: 0.1397 - val\_loss: 0.1447
+Epoch 175/300
+379/379 [==============================] - 0s 55us/step - loss: 0.1415 - val\_loss: 0.1491
+Epoch 176/300
+379/379 [==============================] - 0s 61us/step - loss: 0.1380 - val\_loss: 0.1390
+Epoch 177/300
+379/379 [==============================] - 0s 66us/step - loss: 0.1377 - val\_loss: 0.1551
+Epoch 178/300
+379/379 [==============================] - 0s 50us/step - loss: 0.1349 - val\_loss: 0.1276
+Epoch 179/300
+379/379 [==============================] - 0s 58us/step - loss: 0.1421 - val\_loss: 0.1267
+Epoch 180/300
+379/379 [==============================] - 0s 53us/step - loss: 0.1390 - val\_loss: 0.1336
+Epoch 181/300
+379/379 [==============================] - 0s 69us/step - loss: 0.1345 - val\_loss: 0.1392
+Epoch 182/300
+379/379 [==============================] - 0s 69us/step - loss: 0.1321 - val\_loss: 0.1628
+Epoch 183/300
+379/379 [==============================] - 0s 63us/step - loss: 0.1385 - val\_loss: 0.1273
+Epoch 184/300
+379/379 [==============================] - 0s 77us/step - loss: 0.1306 - val\_loss: 0.1341
+Epoch 185/300
+379/379 [==============================] - 0s 63us/step - loss: 0.1314 - val\_loss: 0.1461
+Epoch 186/300
+379/379 [==============================] - 0s 69us/step - loss: 0.1346 - val\_loss: 0.1268
+Epoch 187/300
+379/379 [==============================] - 0s 79us/step - loss: 0.1301 - val\_loss: 0.1267
+Epoch 188/300
+379/379 [==============================] - 0s 82us/step - loss: 0.1322 - val\_loss: 0.1265
+Epoch 189/300
+379/379 [==============================] - 0s 71us/step - loss: 0.1249 - val\_loss: 0.1369
+Epoch 190/300
+379/379 [==============================] - 0s 82us/step - loss: 0.1358 - val\_loss: 0.1363
+Epoch 191/300
+379/379 [==============================] - 0s 74us/step - loss: 0.1323 - val\_loss: 0.1228
+Epoch 192/300
+379/379 [==============================] - 0s 82us/step - loss: 0.1257 - val\_loss: 0.1203
+Epoch 193/300
+379/379 [==============================] - 0s 69us/step - loss: 0.1270 - val\_loss: 0.1339
+Epoch 194/300
+379/379 [==============================] - 0s 74us/step - loss: 0.1236 - val\_loss: 0.1190
+Epoch 195/300
+379/379 [==============================] - ETA: 0s - loss: 0.112 - 0s 74us/step - loss: 0.1283 - val\_loss: 0.1197
+Epoch 196/300
+379/379 [==============================] - 0s 63us/step - loss: 0.1302 - val\_loss: 0.1242
+Epoch 197/300
+379/379 [==============================] - 0s 71us/step - loss: 0.1290 - val\_loss: 0.1394
+Epoch 198/300
+379/379 [==============================] - 0s 69us/step - loss: 0.1237 - val\_loss: 0.1208
+Epoch 199/300
+379/379 [==============================] - 0s 71us/step - loss: 0.1282 - val\_loss: 0.1471
+Epoch 200/300
+379/379 [==============================] - 0s 61us/step - loss: 0.1288 - val\_loss: 0.1237
+Epoch 201/300
+379/379 [==============================] - 0s 63us/step - loss: 0.1294 - val\_loss: 0.1223
+Epoch 202/300
+379/379 [==============================] - 0s 74us/step - loss: 0.1206 - val\_loss: 0.1243
+Epoch 203/300
+379/379 [==============================] - 0s 63us/step - loss: 0.1200 - val\_loss: 0.1818
+Epoch 204/300
+379/379 [==============================] - 0s 63us/step - loss: 0.1339 - val\_loss: 0.1348
+Epoch 205/300
+379/379 [==============================] - 0s 61us/step - loss: 0.1223 - val\_loss: 0.1269
+Epoch 206/300
+379/379 [==============================] - 0s 58us/step - loss: 0.1208 - val\_loss: 0.1228
+Epoch 207/300
+379/379 [==============================] - 0s 63us/step - loss: 0.1199 - val\_loss: 0.1153
+Epoch 208/300
+379/379 [==============================] - 0s 58us/step - loss: 0.1185 - val\_loss: 0.1132
+Epoch 209/300
+379/379 [==============================] - 0s 61us/step - loss: 0.1256 - val\_loss: 0.1381
+Epoch 210/300
+379/379 [==============================] - 0s 61us/step - loss: 0.1168 - val\_loss: 0.1160
+Epoch 211/300
+379/379 [==============================] - 0s 69us/step - loss: 0.1164 - val\_loss: 0.1244
+Epoch 212/300
+379/379 [==============================] - 0s 58us/step - loss: 0.1184 - val\_loss: 0.1193
+Epoch 213/300
+379/379 [==============================] - 0s 63us/step - loss: 0.1222 - val\_loss: 0.1227
+Epoch 214/300
+379/379 [==============================] - 0s 61us/step - loss: 0.1143 - val\_loss: 0.1114
+Epoch 215/300
+379/379 [==============================] - 0s 58us/step - loss: 0.1180 - val\_loss: 0.1120
+Epoch 216/300
+379/379 [==============================] - 0s 53us/step - loss: 0.1188 - val\_loss: 0.1142
+Epoch 217/300
+379/379 [==============================] - 0s 55us/step - loss: 0.1177 - val\_loss: 0.1120
+Epoch 218/300
+379/379 [==============================] - 0s 66us/step - loss: 0.1184 - val\_loss: 0.1447
+Epoch 219/300
+379/379 [==============================] - 0s 63us/step - loss: 0.1185 - val\_loss: 0.1119
+Epoch 220/300
+379/379 [==============================] - 0s 66us/step - loss: 0.1235 - val\_loss: 0.1150
+Epoch 221/300
+379/379 [==============================] - 0s 61us/step - loss: 0.1153 - val\_loss: 0.1162
+Epoch 222/300
+379/379 [==============================] - 0s 55us/step - loss: 0.1123 - val\_loss: 0.1220
+Epoch 223/300
+379/379 [==============================] - 0s 63us/step - loss: 0.1126 - val\_loss: 0.1118
+Epoch 224/300
+379/379 [==============================] - ETA: 0s - loss: 0.125 - 0s 61us/step - loss: 0.1118 - val\_loss: 0.1241
+Epoch 225/300
+379/379 [==============================] - 0s 58us/step - loss: 0.1145 - val\_loss: 0.1099
+Epoch 226/300
+379/379 [==============================] - 0s 58us/step - loss: 0.1088 - val\_loss: 0.1663
+Epoch 227/300
+379/379 [==============================] - 0s 66us/step - loss: 0.1118 - val\_loss: 0.1083
+Epoch 228/300
+379/379 [==============================] - 0s 58us/step - loss: 0.1108 - val\_loss: 0.1076
+Epoch 229/300
+379/379 [==============================] - 0s 55us/step - loss: 0.1092 - val\_loss: 0.1146
+Epoch 230/300
+379/379 [==============================] - 0s 63us/step - loss: 0.1070 - val\_loss: 0.1270
+Epoch 231/300
+379/379 [==============================] - 0s 63us/step - loss: 0.1111 - val\_loss: 0.1061
+Epoch 232/300
+379/379 [==============================] - 0s 66us/step - loss: 0.1098 - val\_loss: 0.1104
+Epoch 233/300
+379/379 [==============================] - 0s 61us/step - loss: 0.1101 - val\_loss: 0.1171
+Epoch 234/300
+379/379 [==============================] - 0s 55us/step - loss: 0.1097 - val\_loss: 0.1067
+Epoch 235/300
+379/379 [==============================] - 0s 63us/step - loss: 0.1097 - val\_loss: 0.1125
+Epoch 236/300
+379/379 [==============================] - 0s 58us/step - loss: 0.1082 - val\_loss: 0.1091
+Epoch 237/300
+379/379 [==============================] - 0s 58us/step - loss: 0.1099 - val\_loss: 0.1031
+Epoch 238/300
+379/379 [==============================] - 0s 61us/step - loss: 0.1101 - val\_loss: 0.1044
+Epoch 239/300
+379/379 [==============================] - 0s 53us/step - loss: 0.1053 - val\_loss: 0.1048
+Epoch 240/300
+379/379 [==============================] - 0s 71us/step - loss: 0.1114 - val\_loss: 0.1052
+Epoch 241/300
+379/379 [==============================] - 0s 82us/step - loss: 0.1028 - val\_loss: 0.1123
+Epoch 242/300
+379/379 [==============================] - 0s 71us/step - loss: 0.1036 - val\_loss: 0.1213
+Epoch 243/300
+379/379 [==============================] - 0s 100us/step - loss: 0.1032 - val\_loss: 0.1033
+Epoch 244/300
+379/379 [==============================] - 0s 58us/step - loss: 0.1072 - val\_loss: 0.1010
+Epoch 245/300
+379/379 [==============================] - 0s 66us/step - loss: 0.1013 - val\_loss: 0.1031
+Epoch 246/300
+379/379 [==============================] - 0s 74us/step - loss: 0.1002 - val\_loss: 0.1027
+Epoch 247/300
+379/379 [==============================] - 0s 69us/step - loss: 0.1039 - val\_loss: 0.1039
+Epoch 248/300
+379/379 [==============================] - 0s 82us/step - loss: 0.1014 - val\_loss: 0.1031
+Epoch 249/300
+379/379 [==============================] - 0s 87us/step - loss: 0.1006 - val\_loss: 0.1023
+Epoch 250/300
+379/379 [==============================] - 0s 74us/step - loss: 0.1018 - val\_loss: 0.1000
+Epoch 251/300
+379/379 [==============================] - 0s 74us/step - loss: 0.1053 - val\_loss: 0.1082
+Epoch 252/300
+379/379 [==============================] - 0s 79us/step - loss: 0.1029 - val\_loss: 0.1104
+Epoch 253/300
+379/379 [==============================] - 0s 74us/step - loss: 0.1001 - val\_loss: 0.0989
+Epoch 254/300
+379/379 [==============================] - 0s 74us/step - loss: 0.0997 - val\_loss: 0.1036
+Epoch 255/300
+379/379 [==============================] - 0s 79us/step - loss: 0.1023 - val\_loss: 0.1239
+Epoch 256/300
+379/379 [==============================] - 0s 61us/step - loss: 0.1006 - val\_loss: 0.0987
+Epoch 257/300
+379/379 [==============================] - 0s 69us/step - loss: 0.0973 - val\_loss: 0.1124
+Epoch 258/300
+379/379 [==============================] - 0s 69us/step - loss: 0.0989 - val\_loss: 0.0969
+Epoch 259/300
+379/379 [==============================] - 0s 63us/step - loss: 0.1008 - val\_loss: 0.0966
+Epoch 260/300
+379/379 [==============================] - 0s 71us/step - loss: 0.0984 - val\_loss: 0.1164
+Epoch 261/300
+379/379 [==============================] - 0s 63us/step - loss: 0.0995 - val\_loss: 0.1052
+Epoch 262/300
+379/379 [==============================] - 0s 66us/step - loss: 0.0980 - val\_loss: 0.0990
+Epoch 263/300
+379/379 [==============================] - 0s 69us/step - loss: 0.0960 - val\_loss: 0.0987
+Epoch 264/300
+379/379 [==============================] - 0s 61us/step - loss: 0.0984 - val\_loss: 0.1022
+Epoch 265/300
+379/379 [==============================] - 0s 58us/step - loss: 0.0959 - val\_loss: 0.1321
+Epoch 266/300
+379/379 [==============================] - 0s 69us/step - loss: 0.0954 - val\_loss: 0.0974
+Epoch 267/300
+379/379 [==============================] - 0s 61us/step - loss: 0.0962 - val\_loss: 0.0967
+Epoch 268/300
+379/379 [==============================] - 0s 58us/step - loss: 0.0955 - val\_loss: 0.1046
+Epoch 269/300
+379/379 [==============================] - 0s 58us/step - loss: 0.0972 - val\_loss: 0.0966
+Epoch 270/300
+379/379 [==============================] - 0s 66us/step - loss: 0.0996 - val\_loss: 0.0969
+Epoch 271/300
+379/379 [==============================] - 0s 61us/step - loss: 0.0977 - val\_loss: 0.0938
+Epoch 272/300
+379/379 [==============================] - 0s 71us/step - loss: 0.0964 - val\_loss: 0.0997
+Epoch 273/300
+379/379 [==============================] - 0s 71us/step - loss: 0.0972 - val\_loss: 0.0932
+Epoch 274/300
+379/379 [==============================] - 0s 66us/step - loss: 0.0942 - val\_loss: 0.0944
+Epoch 275/300
+379/379 [==============================] - 0s 74us/step - loss: 0.0933 - val\_loss: 0.0995
+Epoch 276/300
+379/379 [==============================] - 0s 69us/step - loss: 0.0942 - val\_loss: 0.0951
+Epoch 277/300
+379/379 [==============================] - 0s 61us/step - loss: 0.1065 - val\_loss: 0.1007
+Epoch 278/300
+379/379 [==============================] - 0s 63us/step - loss: 0.0935 - val\_loss: 0.0963
+Epoch 279/300
+379/379 [==============================] - 0s 63us/step - loss: 0.0926 - val\_loss: 0.1190
+Epoch 280/300
+379/379 [==============================] - 0s 61us/step - loss: 0.0961 - val\_loss: 0.1276
+Epoch 281/300
+379/379 [==============================] - 0s 66us/step - loss: 0.0921 - val\_loss: 0.1132
+Epoch 282/300
+379/379 [==============================] - 0s 61us/step - loss: 0.0909 - val\_loss: 0.0949
+Epoch 283/300
+379/379 [==============================] - 0s 63us/step - loss: 0.0910 - val\_loss: 0.0938
+Epoch 284/300
+379/379 [==============================] - 0s 63us/step - loss: 0.0889 - val\_loss: 0.0945
+Epoch 285/300
+379/379 [==============================] - 0s 53us/step - loss: 0.0926 - val\_loss: 0.0913
+Epoch 286/300
+379/379 [==============================] - 0s 58us/step - loss: 0.0904 - val\_loss: 0.0919
+Epoch 287/300
+379/379 [==============================] - 0s 61us/step - loss: 0.0926 - val\_loss: 0.0975
+Epoch 288/300
+379/379 [==============================] - 0s 63us/step - loss: 0.0917 - val\_loss: 0.0913
+Epoch 289/300
+379/379 [==============================] - 0s 58us/step - loss: 0.0876 - val\_loss: 0.1215
+Epoch 290/300
+379/379 [==============================] - 0s 71us/step - loss: 0.0982 - val\_loss: 0.0910
+Epoch 291/300
+379/379 [==============================] - 0s 61us/step - loss: 0.0884 - val\_loss: 0.1014
+Epoch 292/300
+379/379 [==============================] - 0s 58us/step - loss: 0.0898 - val\_loss: 0.0979
+Epoch 293/300
+379/379 [==============================] - 0s 61us/step - loss: 0.0859 - val\_loss: 0.0898
+Epoch 294/300
+379/379 [==============================] - 0s 66us/step - loss: 0.0893 - val\_loss: 0.1141
+Epoch 295/300
+379/379 [==============================] - 0s 63us/step - loss: 0.0886 - val\_loss: 0.0932
+Epoch 296/300
+379/379 [==============================] - 0s 77us/step - loss: 0.0866 - val\_loss: 0.0943
+Epoch 297/300
+379/379 [==============================] - 0s 61us/step - loss: 0.0878 - val\_loss: 0.0915
+Epoch 298/300
+379/379 [==============================] - 0s 58us/step - loss: 0.0877 - val\_loss: 0.1040
+Epoch 299/300
+379/379 [==============================] - 0s 58us/step - loss: 0.0871 - val\_loss: 0.0984
+Epoch 300/300
+379/379 [==============================] - 0s 55us/step - loss: 0.0883 - val\_loss: 0.1208
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}23}]:} \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+         \PY{c+c1}{\PYZsh{} summarize history for loss}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{history}\PY{o}{.}\PY{n}{history}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{loss}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{history}\PY{o}{.}\PY{n}{history}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{val\PYZus{}loss}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{model MSE}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{MSE}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{epoch}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{train}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{test}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{loc}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{upper left}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_7_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{quote}
+\begin{enumerate}
+\def\labelenumi{\alph{enumi})}
+\setcounter{enumi}{2}
+\tightlist
+\item
+  Repita el paso anterior, utilizado '\textbf{ReLU}' como función de
+  activación y compare con lo obtenido en b).
+\end{enumerate}
+\end{quote}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}25}]:} \PY{k+kn}{from} \PY{n+nn}{keras}\PY{n+nn}{.}\PY{n+nn}{models} \PY{k}{import} \PY{n}{Sequential}
+         \PY{k+kn}{from} \PY{n+nn}{keras}\PY{n+nn}{.}\PY{n+nn}{layers}\PY{n+nn}{.}\PY{n+nn}{core} \PY{k}{import} \PY{n}{Dense}\PY{p}{,} \PY{n}{Activation}
+         \PY{k+kn}{from} \PY{n+nn}{keras}\PY{n+nn}{.}\PY{n+nn}{optimizers} \PY{k}{import} \PY{n}{SGD}
+         \PY{n}{model} \PY{o}{=} \PY{n}{Sequential}\PY{p}{(}\PY{p}{)}
+         \PY{n}{model}\PY{o}{.}\PY{n}{add}\PY{p}{(}\PY{n}{Dense}\PY{p}{(}\PY{l+m+mi}{200}\PY{p}{,} \PY{n}{input\PYZus{}dim}\PY{o}{=}\PY{n}{X\PYZus{}train\PYZus{}scaled}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{kernel\PYZus{}initializer}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{uniform}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{activation}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{relu}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{)}
+         \PY{n}{model}\PY{o}{.}\PY{n}{add}\PY{p}{(}\PY{n}{Dense}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{kernel\PYZus{}initializer}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{uniform}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{activation}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{linear}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{)} 
+         \PY{n}{model}\PY{o}{.}\PY{n}{compile}\PY{p}{(}\PY{n}{optimizer}\PY{o}{=}\PY{n}{SGD}\PY{p}{(}\PY{n}{lr}\PY{o}{=}\PY{l+m+mf}{0.01}\PY{p}{)}\PY{p}{,}\PY{n}{loss}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{mean\PYZus{}squared\PYZus{}error}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{history} \PY{o}{=} \PY{n}{model}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train\PYZus{}scaled}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{epochs}\PY{o}{=}\PY{l+m+mi}{300}\PY{p}{,}
+             \PY{n}{verbose}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{validation\PYZus{}data}\PY{o}{=}\PY{p}{(}\PY{n}{X\PYZus{}test\PYZus{}scaled}\PY{p}{,} \PY{n}{y\PYZus{}test}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Train on 379 samples, validate on 127 samples
+Epoch 1/300
+379/379 [==============================] - 0s 963us/step - loss: 242.5797 - val\_loss: 37.9832
+Epoch 2/300
+379/379 [==============================] - 0s 87us/step - loss: 14.5929 - val\_loss: 13.8191
+Epoch 3/300
+379/379 [==============================] - 0s 90us/step - loss: 6.6403 - val\_loss: 7.8254
+Epoch 4/300
+379/379 [==============================] - 0s 70us/step - loss: 4.1500 - val\_loss: 4.3595
+Epoch 5/300
+379/379 [==============================] - 0s 63us/step - loss: 2.5688 - val\_loss: 3.1464
+Epoch 6/300
+379/379 [==============================] - 0s 63us/step - loss: 1.9693 - val\_loss: 2.5851
+Epoch 7/300
+379/379 [==============================] - 0s 65us/step - loss: 1.5946 - val\_loss: 2.3032
+Epoch 8/300
+379/379 [==============================] - 0s 59us/step - loss: 1.2683 - val\_loss: 2.5068
+Epoch 9/300
+379/379 [==============================] - 0s 66us/step - loss: 1.0713 - val\_loss: 1.3926
+Epoch 10/300
+379/379 [==============================] - 0s 62us/step - loss: 0.9681 - val\_loss: 2.3477
+Epoch 11/300
+379/379 [==============================] - 0s 67us/step - loss: 1.0215 - val\_loss: 1.2172
+Epoch 12/300
+379/379 [==============================] - 0s 62us/step - loss: 0.6815 - val\_loss: 0.9214
+Epoch 13/300
+379/379 [==============================] - 0s 62us/step - loss: 0.7927 - val\_loss: 1.1916
+Epoch 14/300
+379/379 [==============================] - 0s 58us/step - loss: 0.5561 - val\_loss: 1.0134
+Epoch 15/300
+379/379 [==============================] - 0s 58us/step - loss: 0.5161 - val\_loss: 0.7913
+Epoch 16/300
+379/379 [==============================] - 0s 51us/step - loss: 0.4689 - val\_loss: 0.7460
+Epoch 17/300
+379/379 [==============================] - 0s 55us/step - loss: 0.4234 - val\_loss: 0.7365
+Epoch 18/300
+379/379 [==============================] - 0s 65us/step - loss: 0.4657 - val\_loss: 0.6128
+Epoch 19/300
+379/379 [==============================] - 0s 65us/step - loss: 0.3570 - val\_loss: 0.5784
+Epoch 20/300
+379/379 [==============================] - 0s 66us/step - loss: 0.3160 - val\_loss: 0.5838
+Epoch 21/300
+379/379 [==============================] - 0s 65us/step - loss: 0.4557 - val\_loss: 0.5762
+Epoch 22/300
+379/379 [==============================] - 0s 66us/step - loss: 0.3531 - val\_loss: 0.6551
+Epoch 23/300
+379/379 [==============================] - 0s 62us/step - loss: 0.7153 - val\_loss: 0.5499
+Epoch 24/300
+379/379 [==============================] - 0s 63us/step - loss: 0.2834 - val\_loss: 0.3976
+Epoch 25/300
+379/379 [==============================] - 0s 54us/step - loss: 0.2488 - val\_loss: 0.5529
+Epoch 26/300
+379/379 [==============================] - 0s 61us/step - loss: 0.1934 - val\_loss: 0.4340
+Epoch 27/300
+379/379 [==============================] - 0s 54us/step - loss: 0.4839 - val\_loss: 0.3785
+Epoch 28/300
+379/379 [==============================] - 0s 59us/step - loss: 0.1764 - val\_loss: 0.3864
+Epoch 29/300
+379/379 [==============================] - 0s 61us/step - loss: 0.2700 - val\_loss: 0.4950
+Epoch 30/300
+379/379 [==============================] - 0s 50us/step - loss: 0.1946 - val\_loss: 0.3580
+Epoch 31/300
+379/379 [==============================] - 0s 59us/step - loss: 0.1620 - val\_loss: 0.4550
+Epoch 32/300
+379/379 [==============================] - 0s 59us/step - loss: 0.1907 - val\_loss: 0.3134
+Epoch 33/300
+379/379 [==============================] - 0s 62us/step - loss: 0.2295 - val\_loss: 0.3905
+Epoch 34/300
+379/379 [==============================] - 0s 58us/step - loss: 0.3286 - val\_loss: 0.9727
+Epoch 35/300
+379/379 [==============================] - 0s 62us/step - loss: 0.9052 - val\_loss: 0.3041
+Epoch 36/300
+379/379 [==============================] - 0s 59us/step - loss: 0.2414 - val\_loss: 0.5558
+Epoch 37/300
+379/379 [==============================] - 0s 49us/step - loss: 1.3305 - val\_loss: 0.3381
+Epoch 38/300
+379/379 [==============================] - 0s 65us/step - loss: 0.2050 - val\_loss: 0.5561
+Epoch 39/300
+379/379 [==============================] - 0s 62us/step - loss: 0.3371 - val\_loss: 0.2808
+Epoch 40/300
+379/379 [==============================] - 0s 57us/step - loss: 0.1256 - val\_loss: 0.2423
+Epoch 41/300
+379/379 [==============================] - 0s 48us/step - loss: 0.1048 - val\_loss: 0.2889
+Epoch 42/300
+379/379 [==============================] - 0s 62us/step - loss: 0.1225 - val\_loss: 0.4157
+Epoch 43/300
+379/379 [==============================] - 0s 57us/step - loss: 0.1490 - val\_loss: 0.2968
+Epoch 44/300
+379/379 [==============================] - 0s 58us/step - loss: 0.1369 - val\_loss: 0.2210
+Epoch 45/300
+379/379 [==============================] - 0s 53us/step - loss: 0.0971 - val\_loss: 0.2444
+Epoch 46/300
+379/379 [==============================] - 0s 50us/step - loss: 0.1600 - val\_loss: 1.3175
+Epoch 47/300
+379/379 [==============================] - 0s 58us/step - loss: 0.9058 - val\_loss: 0.2116
+Epoch 48/300
+379/379 [==============================] - 0s 58us/step - loss: 0.0958 - val\_loss: 0.2160
+Epoch 49/300
+379/379 [==============================] - 0s 59us/step - loss: 0.0749 - val\_loss: 0.1838
+Epoch 50/300
+379/379 [==============================] - 0s 53us/step - loss: 0.0858 - val\_loss: 0.1834
+Epoch 51/300
+379/379 [==============================] - 0s 61us/step - loss: 0.0797 - val\_loss: 0.2194
+Epoch 52/300
+379/379 [==============================] - 0s 51us/step - loss: 0.0785 - val\_loss: 0.1784
+Epoch 53/300
+379/379 [==============================] - 0s 48us/step - loss: 0.0804 - val\_loss: 0.2130
+Epoch 54/300
+379/379 [==============================] - 0s 48us/step - loss: 0.1043 - val\_loss: 0.2833
+Epoch 55/300
+379/379 [==============================] - 0s 61us/step - loss: 0.3016 - val\_loss: 0.2194
+Epoch 56/300
+379/379 [==============================] - 0s 48us/step - loss: 0.1107 - val\_loss: 0.1673
+Epoch 57/300
+379/379 [==============================] - 0s 50us/step - loss: 0.0710 - val\_loss: 0.1865
+Epoch 58/300
+379/379 [==============================] - 0s 46us/step - loss: 0.2139 - val\_loss: 0.1800
+Epoch 59/300
+379/379 [==============================] - 0s 49us/step - loss: 0.1822 - val\_loss: 0.3748
+Epoch 60/300
+379/379 [==============================] - 0s 55us/step - loss: 0.1749 - val\_loss: 0.1468
+Epoch 61/300
+379/379 [==============================] - 0s 48us/step - loss: 0.0629 - val\_loss: 0.2559
+Epoch 62/300
+379/379 [==============================] - 0s 54us/step - loss: 0.0613 - val\_loss: 0.1687
+Epoch 63/300
+379/379 [==============================] - 0s 63us/step - loss: 0.0555 - val\_loss: 0.1946
+Epoch 64/300
+379/379 [==============================] - 0s 55us/step - loss: 0.1573 - val\_loss: 0.1417
+Epoch 65/300
+379/379 [==============================] - 0s 54us/step - loss: 0.0516 - val\_loss: 0.1426
+Epoch 66/300
+379/379 [==============================] - 0s 67us/step - loss: 0.0611 - val\_loss: 0.1506
+Epoch 67/300
+379/379 [==============================] - 0s 59us/step - loss: 0.0499 - val\_loss: 0.1592
+Epoch 68/300
+379/379 [==============================] - 0s 53us/step - loss: 0.0461 - val\_loss: 0.1218
+Epoch 69/300
+379/379 [==============================] - 0s 77us/step - loss: 0.0443 - val\_loss: 0.1323
+Epoch 70/300
+379/379 [==============================] - 0s 55us/step - loss: 0.0591 - val\_loss: 0.1286
+Epoch 71/300
+379/379 [==============================] - 0s 59us/step - loss: 0.0420 - val\_loss: 0.1270
+Epoch 72/300
+379/379 [==============================] - 0s 58us/step - loss: 0.1071 - val\_loss: 0.5144
+Epoch 73/300
+379/379 [==============================] - 0s 49us/step - loss: 0.2265 - val\_loss: 0.2124
+Epoch 74/300
+379/379 [==============================] - 0s 66us/step - loss: 0.0594 - val\_loss: 0.1496
+Epoch 75/300
+379/379 [==============================] - 0s 48us/step - loss: 0.1807 - val\_loss: 0.1291
+Epoch 76/300
+379/379 [==============================] - 0s 63us/step - loss: 0.0428 - val\_loss: 0.1286
+Epoch 77/300
+379/379 [==============================] - 0s 49us/step - loss: 0.0476 - val\_loss: 0.1289
+Epoch 78/300
+379/379 [==============================] - 0s 48us/step - loss: 0.0579 - val\_loss: 0.1064
+Epoch 79/300
+379/379 [==============================] - 0s 59us/step - loss: 0.0552 - val\_loss: 0.1036
+Epoch 80/300
+379/379 [==============================] - 0s 53us/step - loss: 0.0347 - val\_loss: 0.1062
+Epoch 81/300
+379/379 [==============================] - 0s 54us/step - loss: 0.0605 - val\_loss: 0.1010
+Epoch 82/300
+379/379 [==============================] - 0s 66us/step - loss: 0.0536 - val\_loss: 0.2689
+Epoch 83/300
+379/379 [==============================] - 0s 57us/step - loss: 0.0821 - val\_loss: 0.1066
+Epoch 84/300
+379/379 [==============================] - 0s 58us/step - loss: 0.0384 - val\_loss: 0.0988
+Epoch 85/300
+379/379 [==============================] - 0s 61us/step - loss: 0.0671 - val\_loss: 0.1255
+Epoch 86/300
+379/379 [==============================] - 0s 61us/step - loss: 0.1031 - val\_loss: 0.1311
+Epoch 87/300
+379/379 [==============================] - 0s 66us/step - loss: 0.0446 - val\_loss: 0.1018
+Epoch 88/300
+379/379 [==============================] - 0s 61us/step - loss: 0.0400 - val\_loss: 0.1031
+Epoch 89/300
+379/379 [==============================] - 0s 63us/step - loss: 0.0752 - val\_loss: 0.2680
+Epoch 90/300
+379/379 [==============================] - 0s 57us/step - loss: 0.0734 - val\_loss: 0.0981
+Epoch 91/300
+379/379 [==============================] - 0s 59us/step - loss: 0.0319 - val\_loss: 0.0917
+Epoch 92/300
+379/379 [==============================] - 0s 66us/step - loss: 0.0331 - val\_loss: 0.0994
+Epoch 93/300
+379/379 [==============================] - 0s 59us/step - loss: 0.0318 - val\_loss: 0.0934
+Epoch 94/300
+379/379 [==============================] - 0s 53us/step - loss: 0.0342 - val\_loss: 0.0869
+Epoch 95/300
+379/379 [==============================] - 0s 58us/step - loss: 0.0468 - val\_loss: 0.0931
+Epoch 96/300
+379/379 [==============================] - 0s 63us/step - loss: 0.0278 - val\_loss: 0.1088
+Epoch 97/300
+379/379 [==============================] - 0s 67us/step - loss: 0.0734 - val\_loss: 0.1198
+Epoch 98/300
+379/379 [==============================] - 0s 48us/step - loss: 0.0427 - val\_loss: 0.0920
+Epoch 99/300
+379/379 [==============================] - 0s 61us/step - loss: 0.0768 - val\_loss: 0.0843
+Epoch 100/300
+379/379 [==============================] - 0s 69us/step - loss: 0.0521 - val\_loss: 0.0981
+Epoch 101/300
+379/379 [==============================] - 0s 48us/step - loss: 0.0628 - val\_loss: 0.0845
+Epoch 102/300
+379/379 [==============================] - 0s 66us/step - loss: 0.0410 - val\_loss: 0.0831
+Epoch 103/300
+379/379 [==============================] - 0s 54us/step - loss: 0.0284 - val\_loss: 0.0780
+Epoch 104/300
+379/379 [==============================] - 0s 71us/step - loss: 0.0296 - val\_loss: 0.0843
+Epoch 105/300
+379/379 [==============================] - 0s 58us/step - loss: 0.0381 - val\_loss: 0.0808
+Epoch 106/300
+379/379 [==============================] - 0s 62us/step - loss: 0.0319 - val\_loss: 0.1268
+Epoch 107/300
+379/379 [==============================] - 0s 67us/step - loss: 0.1026 - val\_loss: 0.2712
+Epoch 108/300
+379/379 [==============================] - 0s 62us/step - loss: 0.0738 - val\_loss: 0.0866
+Epoch 109/300
+379/379 [==============================] - 0s 57us/step - loss: 0.0308 - val\_loss: 0.0759
+Epoch 110/300
+379/379 [==============================] - 0s 62us/step - loss: 0.0319 - val\_loss: 0.0810
+Epoch 111/300
+379/379 [==============================] - 0s 61us/step - loss: 0.0288 - val\_loss: 0.0754
+Epoch 112/300
+379/379 [==============================] - 0s 67us/step - loss: 0.0911 - val\_loss: 0.4207
+Epoch 113/300
+379/379 [==============================] - 0s 55us/step - loss: 0.7737 - val\_loss: 0.1007
+Epoch 114/300
+379/379 [==============================] - 0s 59us/step - loss: 0.1358 - val\_loss: 0.2557
+Epoch 115/300
+379/379 [==============================] - 0s 63us/step - loss: 0.1983 - val\_loss: 0.1165
+Epoch 116/300
+379/379 [==============================] - 0s 62us/step - loss: 0.0328 - val\_loss: 0.0733
+Epoch 117/300
+379/379 [==============================] - 0s 62us/step - loss: 0.1212 - val\_loss: 0.1553
+Epoch 118/300
+379/379 [==============================] - 0s 53us/step - loss: 0.0789 - val\_loss: 0.1364
+Epoch 119/300
+379/379 [==============================] - 0s 57us/step - loss: 0.7952 - val\_loss: 0.3615
+Epoch 120/300
+379/379 [==============================] - 0s 55us/step - loss: 0.3143 - val\_loss: 0.2146
+Epoch 121/300
+379/379 [==============================] - 0s 58us/step - loss: 0.0701 - val\_loss: 0.1114
+Epoch 122/300
+379/379 [==============================] - 0s 55us/step - loss: 0.2455 - val\_loss: 0.0818
+Epoch 123/300
+379/379 [==============================] - 0s 66us/step - loss: 0.0391 - val\_loss: 0.0846
+Epoch 124/300
+379/379 [==============================] - 0s 57us/step - loss: 0.0371 - val\_loss: 0.1472
+Epoch 125/300
+379/379 [==============================] - 0s 61us/step - loss: 0.0738 - val\_loss: 0.0812
+Epoch 126/300
+379/379 [==============================] - 0s 58us/step - loss: 0.0412 - val\_loss: 0.0669
+Epoch 127/300
+379/379 [==============================] - 0s 54us/step - loss: 0.0208 - val\_loss: 0.0685
+Epoch 128/300
+379/379 [==============================] - 0s 62us/step - loss: 0.0190 - val\_loss: 0.0667
+Epoch 129/300
+379/379 [==============================] - 0s 50us/step - loss: 0.0249 - val\_loss: 0.0659
+Epoch 130/300
+379/379 [==============================] - 0s 69us/step - loss: 0.0405 - val\_loss: 0.0939
+Epoch 131/300
+379/379 [==============================] - 0s 51us/step - loss: 0.0414 - val\_loss: 0.1239
+Epoch 132/300
+379/379 [==============================] - 0s 59us/step - loss: 0.0670 - val\_loss: 0.0827
+Epoch 133/300
+379/379 [==============================] - 0s 58us/step - loss: 0.0283 - val\_loss: 0.0729
+Epoch 134/300
+379/379 [==============================] - 0s 51us/step - loss: 0.0201 - val\_loss: 0.0633
+Epoch 135/300
+379/379 [==============================] - 0s 59us/step - loss: 0.0234 - val\_loss: 0.0648
+Epoch 136/300
+379/379 [==============================] - 0s 50us/step - loss: 0.0554 - val\_loss: 0.2252
+Epoch 137/300
+379/379 [==============================] - 0s 59us/step - loss: 0.0810 - val\_loss: 0.0762
+Epoch 138/300
+379/379 [==============================] - 0s 65us/step - loss: 0.0290 - val\_loss: 0.0898
+Epoch 139/300
+379/379 [==============================] - 0s 63us/step - loss: 0.0702 - val\_loss: 0.0646
+Epoch 140/300
+379/379 [==============================] - 0s 50us/step - loss: 0.0463 - val\_loss: 0.0655
+Epoch 141/300
+379/379 [==============================] - 0s 65us/step - loss: 0.0228 - val\_loss: 0.0585
+Epoch 142/300
+379/379 [==============================] - 0s 54us/step - loss: 0.0564 - val\_loss: 0.0632
+Epoch 143/300
+379/379 [==============================] - 0s 58us/step - loss: 0.0213 - val\_loss: 0.0601
+Epoch 144/300
+379/379 [==============================] - 0s 62us/step - loss: 0.0149 - val\_loss: 0.0610
+Epoch 145/300
+379/379 [==============================] - ETA: 0s - loss: 0.012 - 0s 50us/step - loss: 0.0161 - val\_loss: 0.0678
+Epoch 146/300
+379/379 [==============================] - 0s 51us/step - loss: 0.0305 - val\_loss: 0.0614
+Epoch 147/300
+379/379 [==============================] - 0s 58us/step - loss: 0.0194 - val\_loss: 0.0728
+Epoch 148/300
+379/379 [==============================] - 0s 61us/step - loss: 0.0153 - val\_loss: 0.0602
+Epoch 149/300
+379/379 [==============================] - 0s 50us/step - loss: 0.0265 - val\_loss: 0.0616
+Epoch 150/300
+379/379 [==============================] - 0s 58us/step - loss: 0.0445 - val\_loss: 0.0950
+Epoch 151/300
+379/379 [==============================] - 0s 66us/step - loss: 0.0444 - val\_loss: 0.0703
+Epoch 152/300
+379/379 [==============================] - 0s 61us/step - loss: 0.0184 - val\_loss: 0.0843
+Epoch 153/300
+379/379 [==============================] - 0s 59us/step - loss: 0.0596 - val\_loss: 0.0632
+Epoch 154/300
+379/379 [==============================] - 0s 61us/step - loss: 0.0155 - val\_loss: 0.0570
+Epoch 155/300
+379/379 [==============================] - 0s 65us/step - loss: 0.0159 - val\_loss: 0.0537
+Epoch 156/300
+379/379 [==============================] - 0s 53us/step - loss: 0.0203 - val\_loss: 0.0539
+Epoch 157/300
+379/379 [==============================] - 0s 53us/step - loss: 0.0191 - val\_loss: 0.0538
+Epoch 158/300
+379/379 [==============================] - 0s 54us/step - loss: 0.0241 - val\_loss: 0.0699
+Epoch 159/300
+379/379 [==============================] - 0s 57us/step - loss: 0.0185 - val\_loss: 0.0531
+Epoch 160/300
+379/379 [==============================] - 0s 55us/step - loss: 0.0181 - val\_loss: 0.0650
+Epoch 161/300
+379/379 [==============================] - 0s 59us/step - loss: 0.0286 - val\_loss: 0.0568
+Epoch 162/300
+379/379 [==============================] - 0s 59us/step - loss: 0.0167 - val\_loss: 0.0518
+Epoch 163/300
+379/379 [==============================] - 0s 75us/step - loss: 0.0204 - val\_loss: 0.0522
+Epoch 164/300
+379/379 [==============================] - 0s 71us/step - loss: 0.0327 - val\_loss: 0.1470
+Epoch 165/300
+379/379 [==============================] - 0s 63us/step - loss: 0.1354 - val\_loss: 0.0591
+Epoch 166/300
+379/379 [==============================] - 0s 57us/step - loss: 0.0231 - val\_loss: 0.0586
+Epoch 167/300
+379/379 [==============================] - 0s 62us/step - loss: 0.0281 - val\_loss: 0.0520
+Epoch 168/300
+379/379 [==============================] - 0s 70us/step - loss: 0.0124 - val\_loss: 0.0581
+Epoch 169/300
+379/379 [==============================] - 0s 59us/step - loss: 0.0160 - val\_loss: 0.0538
+Epoch 170/300
+379/379 [==============================] - 0s 69us/step - loss: 0.0171 - val\_loss: 0.0490
+Epoch 171/300
+379/379 [==============================] - 0s 62us/step - loss: 0.0553 - val\_loss: 0.0564
+Epoch 172/300
+379/379 [==============================] - 0s 62us/step - loss: 0.0159 - val\_loss: 0.0713
+Epoch 173/300
+379/379 [==============================] - 0s 54us/step - loss: 0.0158 - val\_loss: 0.0485
+Epoch 174/300
+379/379 [==============================] - 0s 61us/step - loss: 0.0172 - val\_loss: 0.0612
+Epoch 175/300
+379/379 [==============================] - 0s 65us/step - loss: 0.0444 - val\_loss: 0.0636
+Epoch 176/300
+379/379 [==============================] - 0s 58us/step - loss: 0.0184 - val\_loss: 0.0611
+Epoch 177/300
+379/379 [==============================] - 0s 66us/step - loss: 0.0155 - val\_loss: 0.0651
+Epoch 178/300
+379/379 [==============================] - 0s 62us/step - loss: 0.0190 - val\_loss: 0.0500
+Epoch 179/300
+379/379 [==============================] - 0s 54us/step - loss: 0.0114 - val\_loss: 0.0534
+Epoch 180/300
+379/379 [==============================] - 0s 61us/step - loss: 0.0163 - val\_loss: 0.0489
+Epoch 181/300
+379/379 [==============================] - 0s 65us/step - loss: 0.0111 - val\_loss: 0.0490
+Epoch 182/300
+379/379 [==============================] - 0s 58us/step - loss: 0.0117 - val\_loss: 0.0703
+Epoch 183/300
+379/379 [==============================] - 0s 55us/step - loss: 0.0709 - val\_loss: 0.0617
+Epoch 184/300
+379/379 [==============================] - 0s 63us/step - loss: 0.0163 - val\_loss: 0.0501
+Epoch 185/300
+379/379 [==============================] - 0s 62us/step - loss: 0.0127 - val\_loss: 0.0540
+Epoch 186/300
+379/379 [==============================] - 0s 62us/step - loss: 0.0180 - val\_loss: 0.0578
+Epoch 187/300
+379/379 [==============================] - 0s 65us/step - loss: 0.0577 - val\_loss: 0.0476
+Epoch 188/300
+379/379 [==============================] - 0s 54us/step - loss: 0.0215 - val\_loss: 0.0607
+Epoch 189/300
+379/379 [==============================] - 0s 55us/step - loss: 0.0267 - val\_loss: 0.0459
+Epoch 190/300
+379/379 [==============================] - 0s 63us/step - loss: 0.0127 - val\_loss: 0.0468
+Epoch 191/300
+379/379 [==============================] - 0s 63us/step - loss: 0.0115 - val\_loss: 0.0462
+Epoch 192/300
+379/379 [==============================] - 0s 59us/step - loss: 0.0279 - val\_loss: 0.0483
+Epoch 193/300
+379/379 [==============================] - 0s 54us/step - loss: 0.0190 - val\_loss: 0.0527
+Epoch 194/300
+379/379 [==============================] - 0s 61us/step - loss: 0.0164 - val\_loss: 0.0556
+Epoch 195/300
+379/379 [==============================] - 0s 51us/step - loss: 0.0121 - val\_loss: 0.0751
+Epoch 196/300
+379/379 [==============================] - 0s 62us/step - loss: 0.0261 - val\_loss: 0.0509
+Epoch 197/300
+379/379 [==============================] - 0s 51us/step - loss: 0.0103 - val\_loss: 0.0454
+Epoch 198/300
+379/379 [==============================] - 0s 65us/step - loss: 0.0101 - val\_loss: 0.0471
+Epoch 199/300
+379/379 [==============================] - 0s 50us/step - loss: 0.0187 - val\_loss: 0.0479
+Epoch 200/300
+379/379 [==============================] - 0s 57us/step - loss: 0.0183 - val\_loss: 0.0452
+Epoch 201/300
+379/379 [==============================] - 0s 49us/step - loss: 0.0096 - val\_loss: 0.0437
+Epoch 202/300
+379/379 [==============================] - 0s 58us/step - loss: 0.0104 - val\_loss: 0.0434
+Epoch 203/300
+379/379 [==============================] - 0s 57us/step - loss: 0.0141 - val\_loss: 0.0418
+Epoch 204/300
+379/379 [==============================] - 0s 51us/step - loss: 0.0190 - val\_loss: 0.0597
+Epoch 205/300
+379/379 [==============================] - 0s 58us/step - loss: 0.0516 - val\_loss: 0.0989
+Epoch 206/300
+379/379 [==============================] - 0s 61us/step - loss: 0.0821 - val\_loss: 0.0692
+Epoch 207/300
+379/379 [==============================] - 0s 51us/step - loss: 0.0906 - val\_loss: 0.0566
+Epoch 208/300
+379/379 [==============================] - 0s 50us/step - loss: 0.0334 - val\_loss: 0.0617
+Epoch 209/300
+379/379 [==============================] - 0s 51us/step - loss: 0.0209 - val\_loss: 0.0436
+Epoch 210/300
+379/379 [==============================] - 0s 58us/step - loss: 0.0128 - val\_loss: 0.0636
+Epoch 211/300
+379/379 [==============================] - 0s 54us/step - loss: 0.0132 - val\_loss: 0.0500
+Epoch 212/300
+379/379 [==============================] - 0s 53us/step - loss: 0.0115 - val\_loss: 0.0426
+Epoch 213/300
+379/379 [==============================] - 0s 50us/step - loss: 0.0091 - val\_loss: 0.0423
+Epoch 214/300
+379/379 [==============================] - 0s 49us/step - loss: 0.0253 - val\_loss: 0.0422
+Epoch 215/300
+379/379 [==============================] - 0s 59us/step - loss: 0.0147 - val\_loss: 0.0446
+Epoch 216/300
+379/379 [==============================] - 0s 55us/step - loss: 0.0120 - val\_loss: 0.0516
+Epoch 217/300
+379/379 [==============================] - 0s 62us/step - loss: 0.0230 - val\_loss: 0.0424
+Epoch 218/300
+379/379 [==============================] - 0s 51us/step - loss: 0.0096 - val\_loss: 0.0431
+Epoch 219/300
+379/379 [==============================] - 0s 50us/step - loss: 0.0123 - val\_loss: 0.0444
+Epoch 220/300
+379/379 [==============================] - 0s 51us/step - loss: 0.0129 - val\_loss: 0.0661
+Epoch 221/300
+379/379 [==============================] - 0s 50us/step - loss: 0.0605 - val\_loss: 0.0417
+Epoch 222/300
+379/379 [==============================] - 0s 55us/step - loss: 0.0574 - val\_loss: 0.0729
+Epoch 223/300
+379/379 [==============================] - 0s 54us/step - loss: 0.0438 - val\_loss: 0.0572
+Epoch 224/300
+379/379 [==============================] - 0s 51us/step - loss: 0.0335 - val\_loss: 0.0398
+Epoch 225/300
+379/379 [==============================] - 0s 57us/step - loss: 0.0092 - val\_loss: 0.0407
+Epoch 226/300
+379/379 [==============================] - 0s 54us/step - loss: 0.0097 - val\_loss: 0.0398
+Epoch 227/300
+379/379 [==============================] - 0s 54us/step - loss: 0.0081 - val\_loss: 0.0418
+Epoch 228/300
+379/379 [==============================] - 0s 58us/step - loss: 0.0114 - val\_loss: 0.0425
+Epoch 229/300
+379/379 [==============================] - 0s 55us/step - loss: 0.0200 - val\_loss: 0.0450
+Epoch 230/300
+379/379 [==============================] - 0s 51us/step - loss: 0.0316 - val\_loss: 0.0545
+Epoch 231/300
+379/379 [==============================] - 0s 54us/step - loss: 0.0127 - val\_loss: 0.0634
+Epoch 232/300
+379/379 [==============================] - 0s 51us/step - loss: 0.0143 - val\_loss: 0.0453
+Epoch 233/300
+379/379 [==============================] - 0s 45us/step - loss: 0.0102 - val\_loss: 0.0462
+Epoch 234/300
+379/379 [==============================] - 0s 54us/step - loss: 0.0168 - val\_loss: 0.0432
+Epoch 235/300
+379/379 [==============================] - 0s 55us/step - loss: 0.0206 - val\_loss: 0.0843
+Epoch 236/300
+379/379 [==============================] - 0s 50us/step - loss: 0.0218 - val\_loss: 0.0451
+Epoch 237/300
+379/379 [==============================] - 0s 51us/step - loss: 0.0157 - val\_loss: 0.0419
+Epoch 238/300
+379/379 [==============================] - 0s 53us/step - loss: 0.0115 - val\_loss: 0.0509
+Epoch 239/300
+379/379 [==============================] - 0s 54us/step - loss: 0.0132 - val\_loss: 0.0464
+Epoch 240/300
+379/379 [==============================] - 0s 51us/step - loss: 0.0092 - val\_loss: 0.0540
+Epoch 241/300
+379/379 [==============================] - 0s 50us/step - loss: 0.0401 - val\_loss: 0.1852
+Epoch 242/300
+379/379 [==============================] - 0s 55us/step - loss: 0.1339 - val\_loss: 0.1820
+Epoch 243/300
+379/379 [==============================] - 0s 53us/step - loss: 0.5133 - val\_loss: 0.1098
+Epoch 244/300
+379/379 [==============================] - 0s 61us/step - loss: 0.0342 - val\_loss: 0.0406
+Epoch 245/300
+379/379 [==============================] - 0s 61us/step - loss: 0.0102 - val\_loss: 0.0443
+Epoch 246/300
+379/379 [==============================] - 0s 57us/step - loss: 0.0146 - val\_loss: 0.0402
+Epoch 247/300
+379/379 [==============================] - 0s 53us/step - loss: 0.0085 - val\_loss: 0.0399
+Epoch 248/300
+379/379 [==============================] - 0s 44us/step - loss: 0.0077 - val\_loss: 0.0391
+Epoch 249/300
+379/379 [==============================] - 0s 51us/step - loss: 0.0239 - val\_loss: 0.0392
+Epoch 250/300
+379/379 [==============================] - 0s 61us/step - loss: 0.0200 - val\_loss: 0.0592
+Epoch 251/300
+379/379 [==============================] - 0s 54us/step - loss: 0.0294 - val\_loss: 0.0410
+Epoch 252/300
+379/379 [==============================] - 0s 58us/step - loss: 0.0098 - val\_loss: 0.0405
+Epoch 253/300
+379/379 [==============================] - 0s 57us/step - loss: 0.0323 - val\_loss: 0.0389
+Epoch 254/300
+379/379 [==============================] - 0s 51us/step - loss: 0.0101 - val\_loss: 0.0382
+Epoch 255/300
+379/379 [==============================] - 0s 54us/step - loss: 0.0082 - val\_loss: 0.0401
+Epoch 256/300
+379/379 [==============================] - 0s 62us/step - loss: 0.0102 - val\_loss: 0.0486
+Epoch 257/300
+379/379 [==============================] - 0s 58us/step - loss: 0.0273 - val\_loss: 0.0391
+Epoch 258/300
+379/379 [==============================] - 0s 61us/step - loss: 0.0095 - val\_loss: 0.0399
+Epoch 259/300
+379/379 [==============================] - 0s 57us/step - loss: 0.0127 - val\_loss: 0.0389
+Epoch 260/300
+379/379 [==============================] - 0s 58us/step - loss: 0.0067 - val\_loss: 0.0388
+Epoch 261/300
+379/379 [==============================] - 0s 49us/step - loss: 0.0088 - val\_loss: 0.0387
+Epoch 262/300
+379/379 [==============================] - 0s 61us/step - loss: 0.0151 - val\_loss: 0.0382
+Epoch 263/300
+379/379 [==============================] - 0s 57us/step - loss: 0.0087 - val\_loss: 0.0356
+Epoch 264/300
+379/379 [==============================] - 0s 55us/step - loss: 0.0101 - val\_loss: 0.0466
+Epoch 265/300
+379/379 [==============================] - 0s 59us/step - loss: 0.0085 - val\_loss: 0.0366
+Epoch 266/300
+379/379 [==============================] - 0s 59us/step - loss: 0.0085 - val\_loss: 0.0506
+Epoch 267/300
+379/379 [==============================] - 0s 59us/step - loss: 0.0283 - val\_loss: 0.0491
+Epoch 268/300
+379/379 [==============================] - 0s 51us/step - loss: 0.0791 - val\_loss: 0.0419
+Epoch 269/300
+379/379 [==============================] - 0s 57us/step - loss: 0.0070 - val\_loss: 0.0374
+Epoch 270/300
+379/379 [==============================] - 0s 57us/step - loss: 0.0085 - val\_loss: 0.0485
+Epoch 271/300
+379/379 [==============================] - 0s 53us/step - loss: 0.0271 - val\_loss: 0.0728
+Epoch 272/300
+379/379 [==============================] - 0s 63us/step - loss: 0.1318 - val\_loss: 0.0448
+Epoch 273/300
+379/379 [==============================] - 0s 54us/step - loss: 0.0247 - val\_loss: 0.0442
+Epoch 274/300
+379/379 [==============================] - 0s 54us/step - loss: 0.0216 - val\_loss: 0.0386
+Epoch 275/300
+379/379 [==============================] - 0s 53us/step - loss: 0.0067 - val\_loss: 0.0401
+Epoch 276/300
+379/379 [==============================] - 0s 50us/step - loss: 0.0189 - val\_loss: 0.0382
+Epoch 277/300
+379/379 [==============================] - 0s 49us/step - loss: 0.0110 - val\_loss: 0.0368
+Epoch 278/300
+379/379 [==============================] - 0s 55us/step - loss: 0.0067 - val\_loss: 0.0403
+Epoch 279/300
+379/379 [==============================] - 0s 48us/step - loss: 0.0259 - val\_loss: 0.0396
+Epoch 280/300
+379/379 [==============================] - 0s 53us/step - loss: 0.0072 - val\_loss: 0.0359
+Epoch 281/300
+379/379 [==============================] - 0s 49us/step - loss: 0.0132 - val\_loss: 0.0537
+Epoch 282/300
+379/379 [==============================] - 0s 65us/step - loss: 0.0139 - val\_loss: 0.0344
+Epoch 283/300
+379/379 [==============================] - 0s 50us/step - loss: 0.0079 - val\_loss: 0.0347
+Epoch 284/300
+379/379 [==============================] - 0s 53us/step - loss: 0.0103 - val\_loss: 0.0354
+Epoch 285/300
+379/379 [==============================] - 0s 61us/step - loss: 0.0069 - val\_loss: 0.0348
+Epoch 286/300
+379/379 [==============================] - 0s 57us/step - loss: 0.0060 - val\_loss: 0.0351
+Epoch 287/300
+379/379 [==============================] - 0s 58us/step - loss: 0.0129 - val\_loss: 0.0390
+Epoch 288/300
+379/379 [==============================] - 0s 55us/step - loss: 0.0116 - val\_loss: 0.0361
+Epoch 289/300
+379/379 [==============================] - 0s 54us/step - loss: 0.0075 - val\_loss: 0.0403
+Epoch 290/300
+379/379 [==============================] - 0s 53us/step - loss: 0.0205 - val\_loss: 0.0488
+Epoch 291/300
+379/379 [==============================] - 0s 51us/step - loss: 0.0163 - val\_loss: 0.0363
+Epoch 292/300
+379/379 [==============================] - 0s 57us/step - loss: 0.0112 - val\_loss: 0.0348
+Epoch 293/300
+379/379 [==============================] - 0s 58us/step - loss: 0.0063 - val\_loss: 0.0336
+Epoch 294/300
+379/379 [==============================] - 0s 51us/step - loss: 0.0064 - val\_loss: 0.0350
+Epoch 295/300
+379/379 [==============================] - 0s 62us/step - loss: 0.0065 - val\_loss: 0.0333
+Epoch 296/300
+379/379 [==============================] - 0s 53us/step - loss: 0.0154 - val\_loss: 0.0568
+Epoch 297/300
+379/379 [==============================] - 0s 59us/step - loss: 0.0790 - val\_loss: 0.0904
+Epoch 298/300
+379/379 [==============================] - 0s 58us/step - loss: 0.0552 - val\_loss: 0.0429
+Epoch 299/300
+379/379 [==============================] - 0s 67us/step - loss: 0.0117 - val\_loss: 0.0405
+Epoch 300/300
+379/379 [==============================] - 0s 55us/step - loss: 0.0082 - val\_loss: 0.0371
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}26}]:} \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+         \PY{c+c1}{\PYZsh{} summarize history for loss}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{history}\PY{o}{.}\PY{n}{history}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{loss}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{history}\PY{o}{.}\PY{n}{history}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{val\PYZus{}loss}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{model MSE}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{MSE}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{epoch}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{train}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{test}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{loc}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{upper left}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_10_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{quote}
+\begin{enumerate}
+\def\labelenumi{\alph{enumi})}
+\setcounter{enumi}{3}
+\tightlist
+\item
+  Repita b) y c) variando la tasa de aprendizaje (learning rate) en un
+  rango sensible. Comente. Si observara divergencia durante el
+  entrenamiento, determine si esto ocurre para cada repetición del
+  experimento.
+\end{enumerate}
+\end{quote}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ImportTok{import}\NormalTok{ numpy }\ImportTok{as}\NormalTok{ np}
+\NormalTok{n_lr }\OperatorTok{=} \DecValTok{20}
+\NormalTok{lear_rate }\OperatorTok{=}\NormalTok{ np.linspace(}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{,n_lr)}
+\end{Highlighting}
+\end{Shaded}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}30}]:} \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+         \PY{n}{n\PYZus{}lr} \PY{o}{=} \PY{l+m+mi}{20}
+         \PY{n}{lear\PYZus{}rate} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{n}{n\PYZus{}lr}\PY{p}{)}
+         \PY{n}{activacion}\PY{o}{=}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{sigmoid}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{relu}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+         \PY{k}{for} \PY{n}{a} \PY{o+ow}{in} \PY{n}{activacion}\PY{p}{:}   
+             \PY{k}{for} \PY{n}{r} \PY{o+ow}{in} \PY{n}{lear\PYZus{}rate}\PY{p}{:}
+                 \PY{n}{model} \PY{o}{=} \PY{n}{Sequential}\PY{p}{(}\PY{p}{)}
+                 \PY{n}{model}\PY{o}{.}\PY{n}{add}\PY{p}{(}\PY{n}{Dense}\PY{p}{(}\PY{l+m+mi}{200}\PY{p}{,} \PY{n}{input\PYZus{}dim}\PY{o}{=}\PY{n}{X\PYZus{}train\PYZus{}scaled}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{kernel\PYZus{}initializer}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{uniform}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{activation}\PY{o}{=}\PY{n}{a}\PY{p}{)}\PY{p}{)}
+                 \PY{n}{model}\PY{o}{.}\PY{n}{add}\PY{p}{(}\PY{n}{Dense}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{kernel\PYZus{}initializer}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{uniform}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{activation}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{linear}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{)} 
+                 \PY{n}{model}\PY{o}{.}\PY{n}{compile}\PY{p}{(}\PY{n}{optimizer}\PY{o}{=}\PY{n}{SGD}\PY{p}{(}\PY{n}{lr}\PY{o}{=}\PY{n}{r}\PY{p}{)}\PY{p}{,}\PY{n}{loss}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{mean\PYZus{}squared\PYZus{}error}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+                 \PY{n}{history} \PY{o}{=} \PY{n}{model}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train\PYZus{}scaled}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{epochs}\PY{o}{=}\PY{l+m+mi}{300}\PY{p}{,}
+                                     \PY{n}{verbose}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{validation\PYZus{}data}\PY{o}{=}\PY{p}{(}\PY{n}{X\PYZus{}test\PYZus{}scaled}\PY{p}{,} \PY{n}{y\PYZus{}test}\PY{p}{)}\PY{p}{)}
+                 \PY{n}{loss} \PY{o}{=} \PY{n}{history}\PY{o}{.}\PY{n}{history}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{loss}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{p}{)}
+                 \PY{n}{val\PYZus{}loss} \PY{o}{=} \PY{n}{history}\PY{o}{.}\PY{n}{history}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{val\PYZus{}loss}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{p}{)}
+                 \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{loss}\PY{p}{)}
+                 \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{val\PYZus{}loss}\PY{p}{)}
+                 \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{n}{a}\PY{o}{+}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ MSE con lr=}\PY{l+s+s1}{\PYZsq{}}\PY{o}{+}\PY{n+nb}{str}\PY{p}{(}\PY{n}{r}\PY{p}{)}\PY{p}{)}
+                 \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{MSE}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+                 \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{epoch}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+                 \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{train}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{test}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{loc}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{upper left}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+                 \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_12_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_12_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_12_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_12_3.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_12_4.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_12_5.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+        ---------------------------------------------------------------------------
+
+        KeyboardInterrupt                         Traceback (most recent call last)
+
+        <ipython-input-30-d4f599b345e0> in <module>()
+         10         model.compile(optimizer=SGD(lr=r),loss='mean\_squared\_error')
+         11         history = model.fit(X\_train\_scaled, y\_train, epochs=300,
+    ---> 12                             verbose=0, validation\_data=(X\_test\_scaled, y\_test))
+         13         loss = history.history['loss'].copy()
+         14         val\_loss = history.history['val\_loss'].copy()
+
+
+        F:\textbackslash{}Anaconda2\textbackslash{}envs\textbackslash{}redesneuronales\textbackslash{}lib\textbackslash{}site-packages\textbackslash{}keras\textbackslash{}models.py in fit(self, x, y, batch\_size, epochs, verbose, callbacks, validation\_split, validation\_data, shuffle, class\_weight, sample\_weight, initial\_epoch, steps\_per\_epoch, validation\_steps, **kwargs)
+        961                               initial\_epoch=initial\_epoch,
+        962                               steps\_per\_epoch=steps\_per\_epoch,
+    --> 963                               validation\_steps=validation\_steps)
+        964 
+        965     def evaluate(self, x=None, y=None,
+
+
+        F:\textbackslash{}Anaconda2\textbackslash{}envs\textbackslash{}redesneuronales\textbackslash{}lib\textbackslash{}site-packages\textbackslash{}keras\textbackslash{}engine\textbackslash{}training.py in fit(self, x, y, batch\_size, epochs, verbose, callbacks, validation\_split, validation\_data, shuffle, class\_weight, sample\_weight, initial\_epoch, steps\_per\_epoch, validation\_steps, **kwargs)
+       1703                               initial\_epoch=initial\_epoch,
+       1704                               steps\_per\_epoch=steps\_per\_epoch,
+    -> 1705                               validation\_steps=validation\_steps)
+       1706 
+       1707     def evaluate(self, x=None, y=None,
+
+
+        F:\textbackslash{}Anaconda2\textbackslash{}envs\textbackslash{}redesneuronales\textbackslash{}lib\textbackslash{}site-packages\textbackslash{}keras\textbackslash{}engine\textbackslash{}training.py in \_fit\_loop(self, f, ins, out\_labels, batch\_size, epochs, verbose, callbacks, val\_f, val\_ins, shuffle, callback\_metrics, initial\_epoch, steps\_per\_epoch, validation\_steps)
+       1233                         ins\_batch[i] = ins\_batch[i].toarray()
+       1234 
+    -> 1235                     outs = f(ins\_batch)
+       1236                     if not isinstance(outs, list):
+       1237                         outs = [outs]
+
+
+        F:\textbackslash{}Anaconda2\textbackslash{}envs\textbackslash{}redesneuronales\textbackslash{}lib\textbackslash{}site-packages\textbackslash{}keras\textbackslash{}backend\textbackslash{}tensorflow\_backend.py in \_\_call\_\_(self, inputs)
+       2476         session = get\_session()
+       2477         updated = session.run(fetches=fetches, feed\_dict=feed\_dict,
+    -> 2478                               **self.session\_kwargs)
+       2479         return updated[:len(self.outputs)]
+       2480 
+
+
+        F:\textbackslash{}Anaconda2\textbackslash{}envs\textbackslash{}redesneuronales\textbackslash{}lib\textbackslash{}site-packages\textbackslash{}tensorflow\textbackslash{}python\textbackslash{}client\textbackslash{}session.py in run(self, fetches, feed\_dict, options, run\_metadata)
+        787     try:
+        788       result = self.\_run(None, fetches, feed\_dict, options\_ptr,
+    --> 789                          run\_metadata\_ptr)
+        790       if run\_metadata:
+        791         proto\_data = tf\_session.TF\_GetBuffer(run\_metadata\_ptr)
+
+
+        F:\textbackslash{}Anaconda2\textbackslash{}envs\textbackslash{}redesneuronales\textbackslash{}lib\textbackslash{}site-packages\textbackslash{}tensorflow\textbackslash{}python\textbackslash{}client\textbackslash{}session.py in \_run(self, handle, fetches, feed\_dict, options, run\_metadata)
+        995     if final\_fetches or final\_targets:
+        996       results = self.\_do\_run(handle, final\_targets, final\_fetches,
+    --> 997                              feed\_dict\_string, options, run\_metadata)
+        998     else:
+        999       results = []
+
+
+        F:\textbackslash{}Anaconda2\textbackslash{}envs\textbackslash{}redesneuronales\textbackslash{}lib\textbackslash{}site-packages\textbackslash{}tensorflow\textbackslash{}python\textbackslash{}client\textbackslash{}session.py in \_do\_run(self, handle, target\_list, fetch\_list, feed\_dict, options, run\_metadata)
+       1130     if handle is None:
+       1131       return self.\_do\_call(\_run\_fn, self.\_session, feed\_dict, fetch\_list,
+    -> 1132                            target\_list, options, run\_metadata)
+       1133     else:
+       1134       return self.\_do\_call(\_prun\_fn, self.\_session, handle, feed\_dict,
+
+
+        F:\textbackslash{}Anaconda2\textbackslash{}envs\textbackslash{}redesneuronales\textbackslash{}lib\textbackslash{}site-packages\textbackslash{}tensorflow\textbackslash{}python\textbackslash{}client\textbackslash{}session.py in \_do\_call(self, fn, *args)
+       1137   def \_do\_call(self, fn, *args):
+       1138     try:
+    -> 1139       return fn(*args)
+       1140     except errors.OpError as e:
+       1141       message = compat.as\_text(e.message)
+
+
+        F:\textbackslash{}Anaconda2\textbackslash{}envs\textbackslash{}redesneuronales\textbackslash{}lib\textbackslash{}site-packages\textbackslash{}tensorflow\textbackslash{}python\textbackslash{}client\textbackslash{}session.py in \_run\_fn(session, feed\_dict, fetch\_list, target\_list, options, run\_metadata)
+       1119         return tf\_session.TF\_Run(session, options,
+       1120                                  feed\_dict, fetch\_list, target\_list,
+    -> 1121                                  status, run\_metadata)
+       1122 
+       1123     def \_prun\_fn(session, handle, feed\_dict, fetch\_list):
+
+
+        KeyboardInterrupt: 
+
+    \end{Verbatim}
+
+    \begin{quote}
+\begin{enumerate}
+\def\labelenumi{\alph{enumi})}
+\setcounter{enumi}{4}
+\tightlist
+\item
+  Entrene los modelos considerados en b) y c) usando \emph{progressive
+  decay}. Compare y comente.
+\end{enumerate}
+\end{quote}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{n_decay }\OperatorTok{=} \DecValTok{10}
+\NormalTok{lear_decay }\OperatorTok{=}\NormalTok{ np.logspace(}\OperatorTok{-}\DecValTok{6}\NormalTok{,}\DecValTok{0}\NormalTok{,n_decay)}
+\NormalTok{sgd }\OperatorTok{=}\NormalTok{ SGD(lr}\OperatorTok{=}\FloatTok{0.2}\NormalTok{, decay}\OperatorTok{=}\FloatTok{1e-6}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+    \begin{quote}
+\begin{enumerate}
+\def\labelenumi{\alph{enumi})}
+\setcounter{enumi}{5}
+\tightlist
+\item
+  Entrene los modelos considerados en b) y c) utilizando SGD en
+  mini-\emph{batches}. Experimente con diferentes tamaños del
+  \emph{batch}. Comente.
+\end{enumerate}
+\end{quote}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{n_batches }\OperatorTok{=} \DecValTok{21}
+\NormalTok{batch_sizes }\OperatorTok{=}\NormalTok{ np.}\BuiltInTok{round}\NormalTok{(np.linspace(}\DecValTok{1}\NormalTok{,X_train_scaled.shape[}\DecValTok{0}\NormalTok{],n_batches))}
+\NormalTok{model.fit(X_train_scaled.as_matrix(),y_train.as_matrix(),batch_size}\OperatorTok{=}\DecValTok{50}\NormalTok{,epochs}\OperatorTok{=}\DecValTok{300}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+    \begin{quote}
+\begin{enumerate}
+\def\labelenumi{\alph{enumi})}
+\setcounter{enumi}{6}
+\tightlist
+\item
+  Entrene los modelos obtenidos en b) y c) utilizando estrategias
+  modernas para adaptar la tasa de aprendizaje. Compare los desempeños
+  de adagrad, adadelta, RMSprop y adam. ¿Se observa en algún caso un
+  mejor resultado final? ¿Se observa en algún caso una mayor velocidad
+  de convergencia sobre el dataset de entrenamiento? ¿Sobre el dataset
+  de pruebas?
+\end{enumerate}
+\end{quote}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ImportTok{from}\NormalTok{ keras.optimizers }\ImportTok{import}\NormalTok{ SGD, Adam, RMSprop, Adagrad, Adadelta}
+\NormalTok{moptimizer }\OperatorTok{=}\NormalTok{ Adagrad(lr}\OperatorTok{=}\FloatTok{0.01}\NormalTok{)}
+\NormalTok{model.}\BuiltInTok{compile}\NormalTok{(optimizer}\OperatorTok{=}\NormalTok{moptimizer)}
+\NormalTok{model.fit(X_train_scaled.as_matrix(),y_train.as_matrix())}
+\end{Highlighting}
+\end{Shaded}
+
+    \begin{quote}
+\begin{enumerate}
+\def\labelenumi{\alph{enumi})}
+\setcounter{enumi}{7}
+\tightlist
+\item
+  Entrene los modelos obtenidos en b) y c) utilizando regularizadores
+  \(l_1\) y \(l_2\) (\emph{weight decay}). Compare los desempeños de
+  prueba obtenidos antes y después de regularizar. Experimente con
+  distintos valores del parámetro de regularización y comente. Además
+  evalúe el efecto de regularizar solo la primera capa \emph{vs} la
+  segunda, comente.
+\end{enumerate}
+\end{quote}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{model }\OperatorTok{=}\NormalTok{ Sequential()}
+\CommentTok{#la regularization se debe incorporar a cada capa separadamente}
+\NormalTok{idim}\OperatorTok{=}\NormalTok{X_train_scaled.shape[}\DecValTok{1}\NormalTok{]}
+\NormalTok{model.add(Dense(}\DecValTok{200}\NormalTok{,input_dim}\OperatorTok{=}\NormalTok{idim,kernel_initializer}\OperatorTok{=}\StringTok{'uniform'}\NormalTok{,W_regularizer}\OperatorTok{=}\NormalTok{l2(}\FloatTok{0.01}\NormalTok{)))}
+\NormalTok{model.add(Activation(}\StringTok{'sigmoid'}\NormalTok{))}
+\NormalTok{model.add(Dense(}\DecValTok{1}\NormalTok{, kernel_initializer}\OperatorTok{=}\StringTok{'uniform'}\NormalTok{,W_regularizer}\OperatorTok{=}\NormalTok{l2(}\FloatTok{0.01}\NormalTok{)))}
+\NormalTok{model.add(Activation(}\StringTok{'linear'}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+    \begin{quote}
+\begin{enumerate}
+\def\labelenumi{\roman{enumi})}
+\tightlist
+\item
+  Entrene los modelos obtenidos en b) y c) utilizando \emph{Dropout}.
+  Compare los desempeños de prueba obtenidos antes y después de
+  regularizar. Experimente con distintos valores del parámetro de
+  regularización y comente.
+\end{enumerate}
+\end{quote}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ImportTok{from}\NormalTok{ keras.layers }\ImportTok{import}\NormalTok{ Dropout}
+\NormalTok{model }\OperatorTok{=}\NormalTok{ Sequential()}
+\NormalTok{...}
+\NormalTok{model.add(Dropout(}\FloatTok{0.2}\NormalTok{))}
+\NormalTok{...}
+\end{Highlighting}
+\end{Shaded}
+
+    \begin{quote}
+\begin{enumerate}
+\def\labelenumi{\alph{enumi})}
+\setcounter{enumi}{9}
+\tightlist
+\item
+  Fijando todos los demás hiper-parámetros del modelo definido en b) y
+  en c), utilice validación cruzada con un número de \emph{folds} igual
+  a \emph{K} = 5 y \emph{K}=10 para determinar el mejor valor
+  correspondiente a un parámetro que usted elija (tasa de aprendizaje,
+  número de neuronas, parámetro de regularización, etc) ¿El mejor
+  parámetro para la red con sigmoidal es distinto que para ReLU? ¿Porqué
+  sucede? Además mida el error real del modelo sobre el conjunto de
+  pruebas, compare y concluya.
+\end{enumerate}
+\end{quote}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ImportTok{from}\NormalTok{ sklearn }\ImportTok{import}\NormalTok{ cross_validation}
+\NormalTok{Xm }\OperatorTok{=}\NormalTok{ X_train_scaled.as_matrix()}
+\NormalTok{ym }\OperatorTok{=}\NormalTok{ y_train_scaled.as_matrix()}
+\NormalTok{kfold }\OperatorTok{=}\NormalTok{ cross_validation.KFold(}\BuiltInTok{len}\NormalTok{(Xm), }\DecValTok{10}\NormalTok{)}
+\NormalTok{cvscores }\OperatorTok{=}\NormalTok{ []}
+\ControlFlowTok{for}\NormalTok{ i, (train, val) }\KeywordTok{in} \BuiltInTok{enumerate}\NormalTok{(kfold):}
+    \CommentTok{# create model}
+\NormalTok{    model }\OperatorTok{=} \CommentTok{#model with hiperparam}
+    \CommentTok{# Compile model}
+\NormalTok{    model.}\BuiltInTok{compile}\NormalTok{(optimizer}\OperatorTok{=}\NormalTok{,loss}\OperatorTok{=}\StringTok{'mean_squared_error'}\NormalTok{)}
+    \CommentTok{# Fit the model}
+\NormalTok{    model.fit(Xm[train], ym[train], epochs}\OperatorTok{=}\DecValTok{300}\NormalTok{)}
+    \CommentTok{# evaluate the model}
+\NormalTok{    scores }\OperatorTok{=}\NormalTok{ model.evaluate(Xm[val], ym[val])}
+\NormalTok{    cvscores.append(scores)}
+\NormalTok{mse_cv }\OperatorTok{=}\NormalTok{ np.mean(cvscores)}
+\end{Highlighting}
+\end{Shaded}
+
+     \#\# 2. Deep Networks Las \emph{deep network}, o lo que hoy en día se
+conoce como \emph{deep learning}, hace referencia a modelos de redes
+neuronales estructurados con muchas capas, es decir, el cómputo de la
+función final es la composición una gran cantidad de funciones (
+\$f\^{}\{(n)\} = f\^{}\{(n-1)\} \circ f\^{}\{(n-2)\}
+\circ \cdots \circ f\^{}\{(2)\} \circ f\^{}\{(1)\} \$ con \(n \gg 0\)
+).\\
+Este tipo de redes neuronales tienen una gran cantidad de parámetros,
+creciendo exponencialmente por capa con las redes \emph{feed forward},
+siendo bastante dificiles de entrenar comparadas con una red poco
+profunda, esto es debido a que requieren una gran cantidad de datos para
+ajustar correctamente todos esos parámetros. Pero entonces ¿Cuál es el
+beneficio que tienen este tipo de redes? ¿Qué ganancias trae el añadir
+capas a una arquitectura de una red neuronal?
+
+En esta sección se estudiará la complejidad de entrenar redes neuronales
+profundas, mediante la visualización de los gradientes de los pesos en
+cada capa, el cómo varía mientras se hace el \emph{backpropagation}
+hacia las primeras capas de la red.
+
+\begin{quote}
+\begin{enumerate}
+\def\labelenumi{\alph{enumi})}
+\tightlist
+\item
+  Se trabajará con las etiquetas escaladas uniformemente, es decir,
+  \(\mu=0\) y \(\sigma=1\), ajuste sobre el conjunto de entrenamiento y
+  transforme éstas además de las de pruebas.
+\end{enumerate}
+\end{quote}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{scaler }\OperatorTok{=}\NormalTok{ StandardScaler().fit(df_train)}
+\NormalTok{X_train_scaled }\OperatorTok{=}\NormalTok{ pd.DataFrame(scaler.transform(df_train),columns}\OperatorTok{=}\NormalTok{df_train.columns)}
+\NormalTok{y_train_scaled }\OperatorTok{=}\NormalTok{ X_train_scaled.pop(}\StringTok{'MEDV'}\NormalTok{).values.reshape(}\OperatorTok{-}\DecValTok{1}\NormalTok{,}\DecValTok{1}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{quote}
+\begin{enumerate}
+\def\labelenumi{\alph{enumi})}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  Para el mismo problema definido anteriormente (Section \ref{primero})
+  se entrenará diferentes redes. En esta primera instancia se trabajará
+  con la misma red de la pregunta b), inicializada con pesos uniforme.
+  Visualice el gradiente de la función de pérdida (\emph{loss}) para el
+  conjunto de entrenamiento respecto a los pesos en las distintas capas,
+  para esto se le pedirá el cálculo del gradiente para una capa mediante
+  la función de \emph{gradients}
+  (\textbf{\href{https://www.tensorflow.org/api_docs/python/tf/keras/backend/gradients}{link}})
+  en el \emph{backend} de Keras. Deberá generar un \textbf{histograma}
+  para todos los pesos de cada capa antes y despues del entrenamiento
+  con 300 \emph{epochs}. Comente.
+\end{enumerate}
+\end{quote}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{model }\OperatorTok{=}\NormalTok{ Sequential()}
+\NormalTok{model.add(Dense(}\DecValTok{200}\NormalTok{, input_dim}\OperatorTok{=}\NormalTok{X_train_scaled.shape[}\DecValTok{1}\NormalTok{], kernel_initializer}\OperatorTok{=}\StringTok{'uniform'}\NormalTok{,activation}\OperatorTok{=}\StringTok{'sigmoid'}\NormalTok{))}
+\NormalTok{model.add(Dense(}\DecValTok{1}\NormalTok{, kernel_initializer}\OperatorTok{=}\StringTok{'uniform'}\NormalTok{,activation}\OperatorTok{=}\StringTok{'linear'}\NormalTok{))}
+\NormalTok{sgd }\OperatorTok{=}\NormalTok{ SGD(lr}\OperatorTok{=}\FloatTok{0.01}\NormalTok{)}
+\NormalTok{model.}\BuiltInTok{compile}\NormalTok{(optimizer}\OperatorTok{=}\NormalTok{sgd,loss}\OperatorTok{=}\StringTok{'mean_squared_error'}\NormalTok{)}
+\CommentTok{###calculate gradients}
+\ImportTok{from}\NormalTok{ keras }\ImportTok{import}\NormalTok{ backend }\ImportTok{as}\NormalTok{ K}
+\ImportTok{import}\NormalTok{ tensorflow }\ImportTok{as}\NormalTok{ tf}
+\NormalTok{loss }\OperatorTok{=}\NormalTok{ keras.losses.mean_squared_error(model.output,y_train)}
+\NormalTok{listOfVariableTensors }\OperatorTok{=}\NormalTok{ model.trainable_weights}
+\CommentTok{#We can now calculate the gradients.}
+\NormalTok{gradients }\OperatorTok{=}\NormalTok{ K.gradients(loss, listOfVariableTensors)}
+\NormalTok{sess }\OperatorTok{=}\NormalTok{ K.get_session()}
+\NormalTok{evaluated_gradients }\OperatorTok{=}\NormalTok{ sess.run(gradients,feed_dict}\OperatorTok{=}\NormalTok{\{model.}\BuiltInTok{input}\NormalTok{:X_train_scaled.as_matrix()\})}
+\NormalTok{evaluated_gradients }\OperatorTok{=}\NormalTok{ [gradient}\OperatorTok{/}\BuiltInTok{len}\NormalTok{(y_train) }\ControlFlowTok{for}\NormalTok{ gradient }\KeywordTok{in}\NormalTok{ evaluated_gradients]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{quote}
+\begin{enumerate}
+\def\labelenumi{\alph{enumi})}
+\setcounter{enumi}{2}
+\tightlist
+\item
+  Vuelva a generar los histogramas para los gradientes de los pesos de
+  cada capa antes y después del entrenamiento pero ahora entrenando una
+  red mucho mas profunda de 6 capas, 5 capas escondidas y 1 de salida.
+  Utilice el inicializador de pesos \emph{uniform} el cual inicializa
+  mediante una distribución uniforme entre \(-1/\sqrt{N}\) y
+  \(1/\sqrt{N}\) para cada capa, con \(N\) el número de neuronas de la
+  capa anterior. Por simplicidad visual visualice las 3-4 primeras capas
+  de la red. Comente si observa el efecto del \emph{gradiente
+  desvaneciente} antes y/o después de entrenar.
+\end{enumerate}
+\end{quote}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{model }\OperatorTok{=}\NormalTok{ Sequential()}
+\NormalTok{model.add(Dense(}\DecValTok{200}\NormalTok{, input_dim}\OperatorTok{=}\NormalTok{X_train_scaled.shape[}\DecValTok{1}\NormalTok{], kernel_initializer}\OperatorTok{=}\StringTok{'uniform'}\NormalTok{,activation}\OperatorTok{=}\StringTok{'sigmoid'}\NormalTok{))}
+\NormalTok{model.add(Dense(}\DecValTok{200}\NormalTok{, kernel_initializer}\OperatorTok{=}\StringTok{'uniform'}\NormalTok{,activation}\OperatorTok{=}\StringTok{'sigmoid'}\NormalTok{))}
+\NormalTok{model.add(Dense(}\DecValTok{200}\NormalTok{,  kernel_initializer}\OperatorTok{=}\StringTok{'uniform'}\NormalTok{,activation}\OperatorTok{=}\StringTok{'sigmoid'}\NormalTok{))}
+\NormalTok{model.add(Dense(}\DecValTok{200}\NormalTok{, kernel_initializer}\OperatorTok{=}\StringTok{'uniform'}\NormalTok{,activation}\OperatorTok{=}\StringTok{'sigmoid'}\NormalTok{))}
+\NormalTok{model.add(Dense(}\DecValTok{200}\NormalTok{, kernel_initializer}\OperatorTok{=}\StringTok{'uniform'}\NormalTok{,activation}\OperatorTok{=}\StringTok{'sigmoid'}\NormalTok{))}
+\NormalTok{model.add(Dense(}\DecValTok{1}\NormalTok{, kernel_initializer}\OperatorTok{=}\StringTok{'uniform'}\NormalTok{,activation}\OperatorTok{=}\StringTok{'linear'}\NormalTok{))}
+\NormalTok{sgd }\OperatorTok{=}\NormalTok{ SGD(lr}\OperatorTok{=}\FloatTok{0.01}\NormalTok{)}
+\NormalTok{model.}\BuiltInTok{compile}\NormalTok{(optimizer}\OperatorTok{=}\NormalTok{sgd,loss}\OperatorTok{=}\StringTok{'mean_squared_error'}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{quote}
+\begin{enumerate}
+\def\labelenumi{\alph{enumi})}
+\setcounter{enumi}{3}
+\tightlist
+\item
+  Vuelva a generar los histogramas para los gradientes de los pesos de
+  cada capa antes y después del entrenamiento, pero ahora entrenando la
+  red profunda con el inicializador de Glorot Section \ref{refs}, es
+  decir, una distribución uniforme entre -\(\sqrt{6/(N_{in}+N_{out})}\)
+  y \(\sqrt{6/(N_{in}+N_{out})}\) . Por simplicidad visualice las 3-4
+  primeras capas de la red. Comente si el efecto del \emph{gradiente
+  desvaneciente} se amortigua antes y/o después de entrenar.
+\end{enumerate}
+\end{quote}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{model }\OperatorTok{=}\NormalTok{ Sequential()}
+\NormalTok{model.add(Dense(}\DecValTok{200}\NormalTok{, input_dim}\OperatorTok{=}\NormalTok{X_train_scaled.shape[}\DecValTok{1}\NormalTok{], kernel_initializer}\OperatorTok{=}\StringTok{'glorot_uniform'}\NormalTok{,activation}\OperatorTok{=}\StringTok{'sigmoid'}\NormalTok{))}
+\NormalTok{model.add(Dense(}\DecValTok{200}\NormalTok{, kernel_initializer}\OperatorTok{=}\StringTok{'glorot_uniform'}\NormalTok{,activation}\OperatorTok{=}\StringTok{'sigmoid'}\NormalTok{))}
+\NormalTok{model.add(Dense(}\DecValTok{200}\NormalTok{,  kernel_initializer}\OperatorTok{=}\StringTok{'glorot_uniform'}\NormalTok{,activation}\OperatorTok{=}\StringTok{'sigmoid'}\NormalTok{))}
+\NormalTok{model.add(Dense(}\DecValTok{200}\NormalTok{, kernel_initializer}\OperatorTok{=}\StringTok{'glorot_uniform'}\NormalTok{,activation}\OperatorTok{=}\StringTok{'sigmoid'}\NormalTok{))}
+\NormalTok{model.add(Dense(}\DecValTok{200}\NormalTok{, kernel_initializer}\OperatorTok{=}\StringTok{'glorot_uniform'}\NormalTok{,activation}\OperatorTok{=}\StringTok{'sigmoid'}\NormalTok{))}
+\NormalTok{model.add(Dense(}\DecValTok{1}\NormalTok{, kernel_initializer}\OperatorTok{=}\StringTok{'glorot_uniform'}\NormalTok{,activation}\OperatorTok{=}\StringTok{'linear'}\NormalTok{))}
+\NormalTok{sgd }\OperatorTok{=}\NormalTok{ SGD(lr}\OperatorTok{=}\FloatTok{0.01}\NormalTok{)}
+\NormalTok{model.}\BuiltInTok{compile}\NormalTok{(optimizer}\OperatorTok{=}\NormalTok{sgd,loss}\OperatorTok{=}\StringTok{'mean_squared_error'}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{quote}
+\begin{enumerate}
+\def\labelenumi{\alph{enumi})}
+\setcounter{enumi}{4}
+\tightlist
+\item
+  Vuelva a repetir la experimentación ahora cambiando la función de
+  activación por ReLU, es decir, deberá visualizar los gradientes de los
+  pesos de cada capa antes y después del entrenamiento, con
+  inicialización \emph{uniform} y comparar con la inicialización de He
+  Section \ref{refs}, es decir, una distribución uniforme entre
+  -\(\sqrt{6/N_{in}}\) y \$\sqrt{6/N_{in}} \$. Comente si ocurre el
+  mismo fenómeno anterior (para función sigmoidal) sobre el efecto del
+  \emph{gradiente desvaneciente} para la función ReLU. Explique la
+  importancia de la inicialización de los pesos dependiendo de la
+  arquitectura.
+\end{enumerate}
+\end{quote}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#uniform}
+\NormalTok{...}
+\NormalTok{model.add(Dense(}\DecValTok{200}\NormalTok{, kernel_initializer}\OperatorTok{=}\StringTok{'uniform'}\NormalTok{,activation}\OperatorTok{=}\StringTok{'relu'}\NormalTok{))}
+\NormalTok{...}
+\CommentTok{#he initializer}
+\NormalTok{...}
+\NormalTok{model.add(Dense(}\DecValTok{200}\NormalTok{, kernel_initializer}\OperatorTok{=}\StringTok{'he_uniform'}\NormalTok{,activation}\OperatorTok{=}\StringTok{'relu'}\NormalTok{))}
+\NormalTok{...}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{quote}
+\begin{enumerate}
+\def\labelenumi{\alph{enumi})}
+\setcounter{enumi}{4}
+\tightlist
+\item
+  ¿Qué es lo que sucede con la red más profunda? ¿El modelo logra
+  convergencia en su entrenamiento? Modifique aspectos estructurales
+  (funciones de activación, inicializadores, regularización,
+  \emph{momentum}, variación de tasa de aprendizaje, entre otros) de la
+  red profunda de 6 capas definida anteriormente (no modifique la
+  profundidad ni el número de neuronas) para lograr un error cuadrático
+  medio (\emph{mse}) similar o menor al de una red no profunda, como la
+  definida en b) en esta sección, sobre el conjunto de pruebas.
+\end{enumerate}
+\end{quote}
+
+\begin{quote}
+\begin{enumerate}
+\def\labelenumi{\alph{enumi})}
+\setcounter{enumi}{5}
+\tightlist
+\item
+  Pruebe con utilizar una red \emph{shallow} (poco profunda), es decir,
+  sitúe todas las neuronas en una única capa ¿Qué sucede con la
+  convergencia del algoritmo? ¿Por qué sucede este fenómeno?
+\end{enumerate}
+\end{quote}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{model }\OperatorTok{=}\NormalTok{ Sequential()}
+\NormalTok{model.add(Dense(}\DecValTok{1000}\NormalTok{, input_dim}\OperatorTok{=}\NormalTok{X_train_scaled.shape[}\DecValTok{1}\NormalTok{], kernel_initializer}\OperatorTok{=}\StringTok{'choose'}\NormalTok{,activation}\OperatorTok{=}\StringTok{'sigmoid'}\NormalTok{))}
+\NormalTok{model.add(Dense(}\DecValTok{1}\NormalTok{, kernel_initializer}\OperatorTok{=}\StringTok{'choose'}\NormalTok{,activation}\OperatorTok{=}\StringTok{'linear'}\NormalTok{))}
+\NormalTok{model.}\BuiltInTok{compile}\NormalTok{(optimizer}\OperatorTok{=}\NormalTok{sgd,loss}\OperatorTok{=}\StringTok{'mean_squared_error'}\NormalTok{)}
+\NormalTok{model.fit(X_train_scaled.as_matrix(), y_train_scaled.as_matrix(), epochs}\OperatorTok{=}\DecValTok{300}\NormalTok{,}
+\NormalTok{    verbose}\OperatorTok{=}\DecValTok{1}\NormalTok{, validation_data}\OperatorTok{=}\NormalTok{(X_test_scaled.as_matrix(), y_test_scaled.as_matrix()))}
+\end{Highlighting}
+\end{Shaded}
+
+     \#\# 3. Convolutional Neural Network (CNN) en CIFAR.
+
+En esta sección trabajaremos con un \emph{dataset} bastante conocido y
+utilizado por la comunidad para experimentar con reconocimiento de
+objetos en imágenes: \textbf{CIFAR10} Section \ref{refs}. Se trata de un
+conjunto de 60.000 imágenes RGB de 32 × 32 pixeles que contiene 10
+clases de objetos y 6000 ejemplos por clase. La versión utilizada se
+atribuye a \emph{A. Krizhevsky, V. Nair y G. Hinton} y viene separada en
+50000 ejemplos de entrenamiento y 10000 casos de prueba. El conjunto de
+pruebas fue obtenido seleccionando 1000 imágenes aleatorias de cada
+clase. Los datos restantes han sido ordenados aleatoriamente y están
+organizados en 5 bloques de entrenamiento (\emph{batches}). Las clases
+son mutuamente excluyentes y corresponden a las siguientes categorı́as:
+gatos, perros, ranas, caballos, pájaros, ciervos, aviones, automóviles,
+camiones y barcos. Para esta tarea se experimentará con redes
+convolucionales, conocidas como CNNs ó \emph{ConvNets}.\\
+Nota: \emph{Para esta actividad es bastante aconsejable entrenar las
+redes usando una GPU, ya que de otro modo los tiempos de entrenamiento
+son largos, por lo que recuerde instalar keras con gpu y el driver de
+\textbf{\href{https://developer.nvidia.com/cuda-downloads}{cuda}} para
+la tarjeta gráfica}.
+
+Los datos asociados a esta actividad podrán ser obtenidos utilizando los
+siguientes comandos en la lı́nea de comandos (sistemas UNIX)
+
+\begin{verbatim}
+wget http://octopus.inf.utfsm.cl/~ricky/data.tar.gz
+tar -xzvf data.tar.gz
+rm data.tar.gz
+\end{verbatim}
+
+En la carpeta generada encontrarán 5 archivos denominados '\emph{data
+batch 1}', '\emph{data batch 2}', '\emph{data batch 3}', '\emph{data
+batch 4}', '\emph{data batch 5}' y '\emph{test batch}' correspondientes
+a los 5 bloques de entrenamiento y al conjunto de pruebas
+respectivamente. Los archivos corresponden a diccionarios serializados
+de Python, utilizando la librería Pickle.\\
+Una vez extraı́do, cada diccionario contendrá 2 elementos importantes:
+\emph{data} y \emph{labels}. El primer elemento (\emph{data}) es un
+matriz de 10000 × 3072 (\emph{numpy array}). Cada fila de esa matriz
+corresponde a una imagen RGB: los primeros 1024 valores vienen del canal
+R, los siguientes 1024 del canal G, y los últimos 1024 del canal B. Para
+cada canal, las imágenes han sido vectorizadas por filas, de modo que
+los primeros 32 valores del canal R corresponden a la primera fila de la
+imagen. Por otro lado, el elemento (\emph{labels}) del diccionario
+contiene una lista de 1000 valores enteros entre 0 y 9 que identifican
+las clases antes enumeradas.
+
+\begin{quote}
+\begin{enumerate}
+\def\labelenumi{\alph{enumi})}
+\tightlist
+\item
+  Construya una función que cargue todos los bloques de entrenamiento y
+  pruebas del problema CIFAR generando como salida: (i) dos matrices
+  \(X_{tr}\), \(Y_{tr}\), correspondientes a las imágenes y etiquetas de
+  entrenamiento, (ii) dos matrices \(X_t\) , \(Y_t\) , correspondientes
+  a las imágenes y etiquetas de pruebas, y finalmente (iii) dos matrices
+  \(X_v\),\(Y_v\), correspondientes a imágenes y etiquetas que se usarán
+  como conjunto de validación, es decir para tomar decisiones de diseño
+  acerca del modelo. Este último conjunto debe ser extraı́do desde el
+  conjunto de entrenamiento original y no debe superar las 5000
+  imágenes.
+\end{enumerate}
+\end{quote}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{label_names }\OperatorTok{=}\NormalTok{ [}\StringTok{'airplane'}\NormalTok{, }\StringTok{'automobile'}\NormalTok{, }\StringTok{'bird'}\NormalTok{, }\StringTok{'cat'}\NormalTok{, }\StringTok{'deer'}\NormalTok{, }\StringTok{'dog'}\NormalTok{, }\StringTok{'frog'}\NormalTok{, }\StringTok{'horse'}\NormalTok{, }\StringTok{'ship'}\NormalTok{, }\StringTok{'truck'}\NormalTok{]}
+\ImportTok{import}\NormalTok{ cPickle }\ImportTok{as}\NormalTok{ pickle}
+\ImportTok{import}\NormalTok{ numpy }\ImportTok{as}\NormalTok{ np}
+\ImportTok{import}\NormalTok{ os}
+\ImportTok{from}\NormalTok{ scipy.misc }\ImportTok{import}\NormalTok{ imread}
+\KeywordTok{def}\NormalTok{ load_CIFAR_one(filename):}
+    \ControlFlowTok{with} \BuiltInTok{open}\NormalTok{(filename, }\StringTok{'rb'}\NormalTok{) }\ImportTok{as}\NormalTok{ f:}
+\NormalTok{        datadict }\OperatorTok{=}\NormalTok{ pickle.load(f)}
+\NormalTok{        X }\OperatorTok{=}\NormalTok{ datadict[}\StringTok{'data'}\NormalTok{]}
+\NormalTok{        Y }\OperatorTok{=}\NormalTok{ datadict[}\StringTok{'labels'}\NormalTok{]}
+\NormalTok{        Y }\OperatorTok{=}\NormalTok{ np.array(Y)}
+        \ControlFlowTok{return}\NormalTok{ X, Y}
+\KeywordTok{def}\NormalTok{ load_CIFAR10(PATH):}
+\NormalTok{    xs }\OperatorTok{=}\NormalTok{ []}
+\NormalTok{    ys }\OperatorTok{=}\NormalTok{ []}
+    \ControlFlowTok{for}\NormalTok{ b }\KeywordTok{in} \BuiltInTok{range}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{6}\NormalTok{):}
+\NormalTok{        f }\OperatorTok{=}\NormalTok{ os.path.join(PATH, }\StringTok{'data_batch_}\SpecialCharTok{%d}\StringTok{'} \OperatorTok{%}\NormalTok{ (b, ))}
+\NormalTok{        X, Y }\OperatorTok{=}\NormalTok{ load_CIFAR_one(f)}
+\NormalTok{        xs.append(X)}
+\NormalTok{        ys.append(Y)}
+\NormalTok{    Xtr }\OperatorTok{=}\NormalTok{ np.concatenate(xs)}
+\NormalTok{    Ytr }\OperatorTok{=}\NormalTok{ np.concatenate(ys)}
+    \CommentTok{#add your Xval}
+    \KeywordTok{del}\NormalTok{ X, Y}
+\NormalTok{    Xte, Yte }\OperatorTok{=}\NormalTok{ load_CIFAR_one(os.path.join(PATH, }\StringTok{'test_batch'}\NormalTok{))}
+    \ControlFlowTok{return}\NormalTok{ Xtr, Ytr, Xte, Yte}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{quote}
+\begin{enumerate}
+\def\labelenumi{\alph{enumi})}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  Prepare subconjuntos de entrenamiento, validación y pruebas
+  normalizando las imágenes de entrenamiento y pruebas, dividiendo las
+  intensidades originales de pixel en cada canal por 255. Es importante
+  recordar que ahora se trabajará con la estructura original de los
+  datos, por lo que es necesario recuperar la forma original de las
+  imágenes del vector en el archivo en que vienen. Además, si desea
+  trabajar con el orden de las dimensiones denominado 'tf' (por defecto
+  para \emph{TensorFlow}) deberá hacer realizar la transposición
+  correspondiente. Finalmente, genere una representación adecuada de las
+  salidas deseadas de la red.
+\end{enumerate}
+\end{quote}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ImportTok{import}\NormalTok{ keras}
+\NormalTok{x_train }\OperatorTok{=}\NormalTok{ x_train.reshape((x_train.shape[}\DecValTok{0}\NormalTok{],}\DecValTok{3}\NormalTok{,}\DecValTok{32}\NormalTok{,}\DecValTok{32}\NormalTok{))}
+\NormalTok{x_train }\OperatorTok{=}\NormalTok{ x_train.transpose([}\DecValTok{0}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{1}\NormalTok{]) }\CommentTok{#only if 'tf' dim-ordering is to be used}
+\NormalTok{x_test}\OperatorTok{=}\NormalTok{ x_test.reshape((x_test.shape[}\DecValTok{0}\NormalTok{],}\DecValTok{3}\NormalTok{,}\DecValTok{32}\NormalTok{,}\DecValTok{32}\NormalTok{))}
+\NormalTok{x_test}\OperatorTok{=}\NormalTok{ x_test.transpose([}\DecValTok{0}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{1}\NormalTok{])}\CommentTok{#remove if 'th' dim-ordering is to be used}
+\NormalTok{y_train }\OperatorTok{=}\NormalTok{ keras.utils.to_categorical(y_train, num_classes)}
+\NormalTok{y_test }\OperatorTok{=}\NormalTok{ keras.utils.to_categorical(y_test, num_classes)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{quote}
+\begin{enumerate}
+\def\labelenumi{\alph{enumi})}
+\setcounter{enumi}{2}
+\tightlist
+\item
+  Defina una CNN con arquitectura
+  \(C \times P \times C \times P \times F \times F\). Para ambas capas
+  convolucionales utilice 64 filtros de \(3 \times 3\) y funciones de
+  activación ReLu. Para las capas de pooling utilice filtros de
+  \(2 \times 2\) con stride 2. Para la capa MLP escondida use 512
+  neuronas. Genere un esquema lo más compacto posible que muestre los
+  cambios de forma (dimensionalidad) que experimenta un patrón de
+  entrada a medida que se ejecuta un forward-pass y el número de
+  parámetros de cada capa.
+\end{enumerate}
+\end{quote}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ImportTok{from}\NormalTok{ keras.models }\ImportTok{import}\NormalTok{ Sequential}
+\ImportTok{from}\NormalTok{ keras.layers }\ImportTok{import}\NormalTok{ Dense, Dropout, Activation, Flatten}
+\ImportTok{from}\NormalTok{ keras.layers }\ImportTok{import}\NormalTok{ Conv2D, MaxPooling2D}
+\NormalTok{model }\OperatorTok{=}\NormalTok{ Sequential()}
+\NormalTok{model.add(Conv2D(}\DecValTok{64}\NormalTok{, (}\DecValTok{3}\NormalTok{, }\DecValTok{3}\NormalTok{), padding}\OperatorTok{=}\StringTok{'same'}\NormalTok{, input_shape}\OperatorTok{=}\NormalTok{x_train.shape[}\DecValTok{1}\NormalTok{:]))}
+\NormalTok{model.add(Activation(}\StringTok{'relu'}\NormalTok{))}
+\NormalTok{model.add(MaxPooling2D(pool_size}\OperatorTok{=}\NormalTok{(}\DecValTok{2}\NormalTok{, }\DecValTok{2}\NormalTok{)))}
+\NormalTok{model.add(Conv2D(}\DecValTok{64}\NormalTok{, (}\DecValTok{3}\NormalTok{, }\DecValTok{3}\NormalTok{), padding}\OperatorTok{=}\StringTok{'same'}\NormalTok{))}
+\NormalTok{model.add(Activation(}\StringTok{'relu'}\NormalTok{))}
+\NormalTok{model.add(MaxPooling2D(pool_size}\OperatorTok{=}\NormalTok{(}\DecValTok{2}\NormalTok{, }\DecValTok{2}\NormalTok{)))}
+\NormalTok{model.add(Flatten())}
+\NormalTok{model.add(Dense(}\DecValTok{512}\NormalTok{))}
+\NormalTok{model.add(Activation(}\StringTok{'relu'}\NormalTok{))}
+\NormalTok{model.add(Dense(}\DecValTok{10}\NormalTok{))}
+\NormalTok{model.add(Activation(}\StringTok{'softmax'}\NormalTok{))}
+\NormalTok{model.summary()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{quote}
+\begin{enumerate}
+\def\labelenumi{\alph{enumi})}
+\setcounter{enumi}{3}
+\tightlist
+\item
+  Entrene la CNN definida en c) utilizando SGD. En este dataset, una
+  tasa de aprendizaje ``segura'' es \(\eta = 10^4\) o inferior, pero
+  durante las primeras \emph{epochs} el entrenamiento resulta demasiado
+  lento. Para resolver el problema aprenderemos a controlar la tasa de
+  aprendizaje utilizada en el entrenamiento. Implemente la siguiente
+  idea: deseamos partir con una tasa de aprendizaje \(\eta = 10^3\) y
+  dividir por 2 ese valor cada 10 epochs. Suponga además que no queremos
+  usar una tasa de aprendizaje menor a \(\eta = 10^5\). Construya un
+  gráfico que muestre los errores de entrenamiento, validación y pruebas
+  como función del número de ``epochs'', entrene con 25 \emph{epochs}.
+\end{enumerate}
+\end{quote}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ImportTok{from}\NormalTok{ keras.optimizers }\ImportTok{import}\NormalTok{ SGD, rmsprop}
+\ImportTok{from}\NormalTok{ keras.callbacks }\ImportTok{import}\NormalTok{ LearningRateScheduler}
+\ImportTok{import}\NormalTok{ math}
+\KeywordTok{def}\NormalTok{ step_decay(epoch):}
+\NormalTok{    initial_lrate }\OperatorTok{=} \FloatTok{0.001}
+\NormalTok{    lrate }\OperatorTok{=}\NormalTok{ initial_lrate }\OperatorTok{*}\NormalTok{ math.}\BuiltInTok{pow}\NormalTok{(}\FloatTok{0.5}\NormalTok{, math.floor((}\DecValTok{1}\OperatorTok{+}\NormalTok{epoch)}\OperatorTok{/}\DecValTok{5}\NormalTok{))}
+\NormalTok{    lrate }\OperatorTok{=} \BuiltInTok{max}\NormalTok{(lrate,}\FloatTok{0.00001}\NormalTok{)}
+    \ControlFlowTok{return}\NormalTok{ lrate}
+\NormalTok{opt }\OperatorTok{=}\NormalTok{ SGD(lr}\OperatorTok{=}\FloatTok{0.0}\NormalTok{, momentum}\OperatorTok{=}\FloatTok{0.9}\NormalTok{, decay}\OperatorTok{=}\FloatTok{0.0}\NormalTok{)}
+\NormalTok{lrate }\OperatorTok{=}\NormalTok{ LearningRateScheduler(step_decay)}
+\NormalTok{model.}\BuiltInTok{compile}\NormalTok{( ... )}
+\NormalTok{model.fit(x_train, y_train,batch_size}\OperatorTok{=}\NormalTok{batch_size,epochs}\OperatorTok{=}\NormalTok{epochs, validation_data}\OperatorTok{=}\NormalTok{(x_test,y_test), shuffle}\OperatorTok{=}\VariableTok{True}\NormalTok{, callbacks}\OperatorTok{=}\NormalTok{[lrate])}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{quote}
+\begin{enumerate}
+\def\labelenumi{\alph{enumi})}
+\setcounter{enumi}{4}
+\tightlist
+\item
+  Entrene la CNN definida en c) utilizando \textbf{RMSProp} durante 25
+  \emph{epochs}. Elija la función de pérdida más apropiada para este
+  problema. Construya finalmente un gráfico que muestre los errores de
+  entrenamiento, validación y pruebas como función del número de
+  \emph{epochs}.
+\end{enumerate}
+\end{quote}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ImportTok{from}\NormalTok{ keras.optimizers }\ImportTok{import}\NormalTok{ SGD, rmsprop}
+\NormalTok{opt }\OperatorTok{=}\NormalTok{ rmsprop(lr}\OperatorTok{=}\FloatTok{0.001}\NormalTok{, decay}\OperatorTok{=}\FloatTok{1e-6}\NormalTok{)}
+\NormalTok{model.}\BuiltInTok{compile}\NormalTok{( ... )}
+\NormalTok{model.fit(x_train, y_train,batch_size}\OperatorTok{=}\NormalTok{batch_size,epochs}\OperatorTok{=}\NormalTok{epochs, validation_data}\OperatorTok{=}\NormalTok{(x_test, y_test),shuffle}\OperatorTok{=}\VariableTok{True}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{quote}
+\begin{enumerate}
+\def\labelenumi{\alph{enumi})}
+\setcounter{enumi}{5}
+\tightlist
+\item
+  Evalúe el efecto de modificar el tamaño de los filtros (de
+  convolución) reportando la sensibilidad del error de pruebas a estos
+  cambios en dos tipos de arquitecturas, una profunda y otra no.
+  Presente un gráfico o tabla resumen. Por simplicidad entre durante
+  sólo 15-20 \emph{epochs}.
+\end{enumerate}
+\end{quote}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#Shallow network}
+\NormalTok{nc }\OperatorTok{=} \CommentTok{#convolutional filter size}
+\NormalTok{model }\OperatorTok{=}\NormalTok{ Sequential()}
+\NormalTok{model.add(Conv2D(}\DecValTok{64}\NormalTok{, (nc, nc), padding}\OperatorTok{=}\StringTok{'same'}\NormalTok{, input_shape}\OperatorTok{=}\NormalTok{x_train.shape[}\DecValTok{1}\NormalTok{:]))}
+\NormalTok{model.add(Activation(}\StringTok{'relu'}\NormalTok{))}
+\NormalTok{model.add(MaxPooling2D(pool_size}\OperatorTok{=}\NormalTok{(}\DecValTok{2}\NormalTok{, }\DecValTok{2}\NormalTok{)))}
+\NormalTok{model.add(Flatten())}
+\NormalTok{model.add(Dense(}\DecValTok{512}\NormalTok{))}
+\NormalTok{model.add(Activation(}\StringTok{'relu'}\NormalTok{))}
+\NormalTok{model.add(Dense(}\DecValTok{10}\NormalTok{))}
+\NormalTok{model.add(Activation(}\StringTok{'softmax'}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{quote}
+\begin{enumerate}
+\def\labelenumi{\alph{enumi})}
+\setcounter{enumi}{6}
+\tightlist
+\item
+  Se ha sugerido que la práctica bastante habitual de continuar una capa
+  convolucional con una capa de \emph{pooling} puede generar una
+  reducción prematura de las dimensiones del patrón de entrada.
+  Experimente con una arquitectura del tipo
+  \(C \times C \times P \times C \times C \times P \times F \times F\).
+  Use 64 filtros para las primeras 2 capas convolucionales y 128 para
+  las últimas dos. Reflexione sobre qué le parece más sensato: ¿mantener
+  el tamaño de los filtros usados anteriormente? o ¿usar filtros más
+  grandes en la segunda capa convolucional y más pequeños en la primera?
+  o ¿usar filtros más pequeños en la segunda capa convolucional y más
+  grandes en la primera? \emph{Hint}: con esta nueva arquitectura
+  debiese superar el 70\% de accuracy (de validación/test) antes de 5
+  epochs, pero la arquitectura es más sensible a overfitting por lo que
+  podrı́a ser conveniente agregar un regularizador. Como resultado final
+  de esta actividad gráficque los errores de entrenamiento, validación y
+  pruebas como función del número de ``epochs'' (fijando el máximo en un
+  número razonable como T = 25).
+\end{enumerate}
+\end{quote}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{model }\OperatorTok{=}\NormalTok{ Sequential()}
+\NormalTok{model.add(Conv2D(}\DecValTok{64}\NormalTok{, (}\DecValTok{3}\NormalTok{, }\DecValTok{3}\NormalTok{), padding}\OperatorTok{=}\StringTok{'same'}\NormalTok{, input_shape}\OperatorTok{=}\NormalTok{x_train.shape[}\DecValTok{1}\NormalTok{:]))}
+\NormalTok{model.add(Activation(}\StringTok{'relu'}\NormalTok{))}
+\NormalTok{model.add(Conv2D(}\DecValTok{64}\NormalTok{, (}\DecValTok{3}\NormalTok{, }\DecValTok{3}\NormalTok{), padding}\OperatorTok{=}\StringTok{'same'}\NormalTok{))}
+\NormalTok{model.add(Activation(}\StringTok{'relu'}\NormalTok{))}
+\NormalTok{model.add(MaxPooling2D(pool_size}\OperatorTok{=}\NormalTok{(}\DecValTok{2}\NormalTok{, }\DecValTok{2}\NormalTok{)))}
+\NormalTok{model.add(Dropout(}\FloatTok{0.25}\NormalTok{))}
+\NormalTok{...}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{quote}
+\begin{enumerate}
+\def\labelenumi{\alph{enumi})}
+\setcounter{enumi}{7}
+\tightlist
+\item
+  Algunos investigadores, han propuesto que las capas de \emph{pooling}
+  se pueden reemplazar por capas convoluciones con stride 2. ¿Se reduce
+  dimensionalidad de este modo? Compruébelo verificando los cambios de
+  forma (dimensionalidad) que experimenta un patrón de entrada a medida
+  que se ejecuta un \emph{forward-pass}. Entrene la red resultante con
+  el método que prefiera, gráficando los errores de entrenamiento,
+  validación y pruebas como función del número de ``epochs'' (fijando el
+  máximo en un número razonable como T = 25).
+\end{enumerate}
+\end{quote}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{...}
+\NormalTok{model.add(Conv2D(}\DecValTok{128}\NormalTok{, (}\DecValTok{3}\NormalTok{, }\DecValTok{3}\NormalTok{), padding}\OperatorTok{=}\StringTok{'same'}\NormalTok{))}
+\NormalTok{model.add(Activation(}\StringTok{'relu'}\NormalTok{))}
+\NormalTok{model.add(Conv2D(}\DecValTok{128}\NormalTok{, (}\DecValTok{3}\NormalTok{, }\DecValTok{3}\NormalTok{), padding}\OperatorTok{=}\StringTok{'same'}\NormalTok{))}
+\NormalTok{model.add(Activation(}\StringTok{'relu'}\NormalTok{))}
+\NormalTok{model.add(Conv2D(}\DecValTok{64}\NormalTok{, (}\DecValTok{3}\NormalTok{, }\DecValTok{3}\NormalTok{), strides}\OperatorTok{=}\NormalTok{(}\DecValTok{2}\NormalTok{, }\DecValTok{2}\NormalTok{), padding}\OperatorTok{=}\StringTok{'same'}\NormalTok{))}
+\NormalTok{...}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{quote}
+\begin{enumerate}
+\def\labelenumi{\roman{enumi})}
+\tightlist
+\item
+  Una forma interesante de regularizar modelos entrenados para visión
+  artificial consiste en ``aumentar'' el número de ejemplos de
+  entrenamiento usando transformaciones sencillas como: rotaciones,
+  corrimientos y reflexiones, tanto horizontales como verticales.
+  Explique porqué este procedimiento podrı́a ayudar a mejorar el modelo y
+  el porqué las etiquetas no cambian al aplicar estas operaciones.
+  Evalúe experimentalmente la conveniencia de incorporarlo.
+\end{enumerate}
+\end{quote}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ImportTok{from}\NormalTok{ keras.preprocessing.image }\ImportTok{import}\NormalTok{ ImageDataGenerator}
+\NormalTok{datagen }\OperatorTok{=}\NormalTok{ ImageDataGenerator(}
+\NormalTok{    featurewise_center}\OperatorTok{=}\VariableTok{False}\NormalTok{, }\CommentTok{# set input mean to 0 over the dataset}
+\NormalTok{    samplewise_center}\OperatorTok{=}\VariableTok{False}\NormalTok{, }\CommentTok{# set each sample mean to 0}
+\NormalTok{    featurewise_std_normalization}\OperatorTok{=}\VariableTok{False}\NormalTok{, }\CommentTok{# divide inputs by std of the dataset}
+\NormalTok{    samplewise_std_normalization}\OperatorTok{=}\VariableTok{False}\NormalTok{, }\CommentTok{# divide each input by its std}
+\NormalTok{    zca_whitening}\OperatorTok{=}\VariableTok{False}\NormalTok{, }\CommentTok{# apply ZCA whitening}
+\NormalTok{    rotation_range}\OperatorTok{=}\DecValTok{0}\NormalTok{, }\CommentTok{# randomly rotate images (degrees, 0 to 180)}
+\NormalTok{    width_shift_range}\OperatorTok{=}\FloatTok{0.1}\NormalTok{, }\CommentTok{# randomly shift images horizontally (fraction of width)}
+\NormalTok{    height_shift_range}\OperatorTok{=}\FloatTok{0.1}\NormalTok{, }\CommentTok{# randomly shift images vertically (fraction of height)}
+\NormalTok{    horizontal_flip}\OperatorTok{=}\VariableTok{True}\NormalTok{, }\CommentTok{# randomly flip images}
+\NormalTok{    vertical_flip}\OperatorTok{=}\VariableTok{False}\NormalTok{) }\CommentTok{# randomly flip images}
+\NormalTok{datagen.fit(x_train)}
+\NormalTok{model.fit_generator(datagen.flow(x_train, y_train,batch_size}\OperatorTok{=}\NormalTok{batch_size),steps_per_epoch}\OperatorTok{=}\NormalTok{x_train.shape[}\DecValTok{0}\NormalTok{]}\OperatorTok{//}\NormalTok{ batch_size, epochs}\OperatorTok{=}\NormalTok{epochs,validation_data}\OperatorTok{=}\NormalTok{(x_test, y_test))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{quote}
+\begin{enumerate}
+\def\labelenumi{\alph{enumi})}
+\setcounter{enumi}{9}
+\tightlist
+\item
+  Elija una de las redes entrenadas en esta sección (preferentemente una
+  con buen desempeño) y determine los pares de objetos (por ejemplo
+  ``camiones'' con ``autos'') que la red tiende a confundir. Conjeture
+  el motivo de tal confusión.
+\end{enumerate}
+\end{quote}
+
+\begin{quote}
+\begin{enumerate}
+\def\labelenumi{\alph{enumi})}
+\setcounter{enumi}{10}
+\tightlist
+\item
+  Elija una de las redes entrenadas (preferentemente una con buen
+  desempeño) y visualice los pesos correspondientes a los filtros de la
+  primera capa convolucional. Visualice además el efecto del filtro
+  sobre algunas imágenes de entrenamiento. Repita el proceso para los
+  pesos de la última capa convolucional. Comente.
+\end{enumerate}
+\end{quote}
+
+     \#\# 4. Aplicación de una red neuronal en Localización Desde la edad
+antigua, múltiples formas de localización han sido desarrolladas. Dentro
+de los avances más importantes en este ámbito, es el desarrollo de la
+teorı́a cientı́fica y técnica denominada georreferenciación. Gracias a
+GPS, el crecimiento y acceso de la georreferenciación y navegación está
+en progresivo aumento, el problema surge cuando se intentan estimar en
+recintos interiores (como edificios o bajo tierra) donde el GPS no
+funciona de la manera como uno esperaría, debido a que existen muchos
+obstáculos e interferencia que imposibilitan su uso.\\
+Dentro de interiores se cuenta con señales RSSI (\emph{fingerprint}) que
+pueden atacar este problema, sin embargo los métodos actuales no son
+robustos a ruido, por lo que su tarea será la de abordar este problema
+para mejorar exactitud de sistemas de posicionamiento en interiores
+mediante redes neuronales.
+
+La metodología con la que se trabajará será que, para dentro de
+interiores, dispositivos \emph{Bluetooth} emiten señales RSSI las cuales
+son captadas por el dispositivo "objetivo" al cual se le desea
+determinar su localización, recibiendo distintas intensidades de señal
+de cada dispositivo emisor debido a su posición en el interior. Los
+datos con los que se va a trabajar (\emph{IndoorFingerprint.csv}) fueron
+provistos por el nuevo Ing. Civil Informático Felipe Berrios, éstos
+constan de 8 características
+(\emph{C1hA,0kxZ,tvMX,OlYb,7rk5,F39L,VNSF,tkxI}) correspondientes a las
+mediciones hechas/recibidas por el dispositivo "objetivo" de las
+distintas señales RSSI emitidas por los dispositivos \emph{Bluetooth} en
+los bordes del interior, además de tener la posición del dispositivo
+"objetivo" en un plano XY (valor a estimar).
+
+Grilla ejemplo de cómo funciona el sistema (elaboración por Felipe
+Berrios). Los 4 dispositivos en la esquina son los que emiten las
+señales RSSI, el punto naranja es el dispositivo que las recibe y es el
+"objetivo" a determinar la posición.
+
+Una consideración importante es el cómo tratar la ausencia de la señal
+proveniente de un dispositivo \emph{Bluetooth}, para estos datos se
+utiliza un valor de +100, ya que es imposible obtener este valor debido
+a las características de la escala RSSI (siempre negativa o igual a
+cero), pero puede ser sustituido por otro.\\
+Para hacer el trabajo mas simple se discretizará la posición en el plano
+definiendo zonas en dónde está el objeto a localizar. Las zonas deben
+ser las que indica la malla a continuación:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+        \PY{n}{df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{./IndoorFingerprint.csv}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+        \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline
+        \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{X}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,}\PY{n}{df}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Y}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}
+        
+        \PY{n}{x\PYZus{}ticks} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{49}\PY{p}{,} \PY{l+m+mi}{8}\PY{p}{)}
+        \PY{n}{y\PYZus{}ticks} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{,} \PY{l+m+mi}{22}\PY{p}{,} \PY{l+m+mi}{4}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{xticks}\PY{p}{(}\PY{n}{x\PYZus{}ticks}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{yticks}\PY{p}{(}\PY{n}{y\PYZus{}ticks}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{grid}\PY{p}{(}\PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{linestyle}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{linewidth}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{y position}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{x position}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_22_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Donde los puntos azules son los distintos datos superpuestos de las
+posiciones del objeto a localizar. Por ejemplo el punto (2,8) está en la
+primera zona (o en la primera zona del eje \emph{x} y del eje \emph{y}),
+el punto (2,20) está en la zona 19 (o en la primera zona del eje
+\emph{x} y la cuarta zona del eje \emph{y}). Esta discretización
+transforma el problema que en un principio podría ser de regresión para
+determinar la posición exacta, en un problema de clasificación
+dividiendo (dentro de los posibles valores) 6 zonas para el eje
+"\emph{x}" y 4 zonas para el eje "\emph{y}", contando con un total de 24
+clases (24 zonas en la malla).
+
+\begin{quote}
+Deberá entrenar una red neuronal \emph{feed forward} para la
+clasificación de las 24 posibles clases, con el objetivo de tener un
+desempeño (\emph{accuracy}) mayor al 75\%. \#\#\#\# Importante El
+conjunto de pruebas está \textbf{fijado} a través de los indices de
+posiciones del dataset, por lo que deberá leer estos indices y crear el
+conjunto de pruebas a partir de éstos.
+\end{quote}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mask_test }\OperatorTok{=}\NormalTok{ np.loadtxt(}\StringTok{'mask_test.csv'}\NormalTok{,dtype}\OperatorTok{=}\StringTok{"i"}\NormalTok{)}
+\NormalTok{X_test }\OperatorTok{=}\NormalTok{ X[mask_test]}
+\NormalTok{X_train }\OperatorTok{=}\NormalTok{ np.delete(X,mask_test,axis}\OperatorTok{=}\DecValTok{0}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+Es una buena práctica el normalizar los datos antes de trabajar con los
+modelos
+
+     \#\# Referencias {[}1{]} Glorot, X., \& Bengio, Y. (2010, March).
+\emph{Understanding the difficulty of training deep feedforward neural
+networks}. In Proceedings of the thirteenth international conference on
+artificial intelligence and statistics (pp. 249-256).\\
+{[}2{]} He, K., Zhang, X., Ren, S., \& Sun, J. (2015). \emph{Delving
+deep into rectifiers: Surpassing human-level performance on imagenet
+classification}. In Proceedings of the IEEE international conference on
+computer vision (pp. 1026-1034).\\
+{[}3{]} Krizhevsky, A., \& Hinton, G. (2009). Learning multiple layers
+of features from tiny images.
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
